@@ -6,6 +6,15 @@ Gemelo digital abierto y reproducible para el XLeRobot 0.4 de base diferencial. 
 
 ## Inicio rápido
 
+En Windows, la ruta recomendada es:
+
+```powershell
+.\scripts\bootstrap.ps1
+.\scripts\verify.ps1
+```
+
+El equivalente manual es:
+
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
@@ -17,6 +26,8 @@ python scripts/run_mujoco.py
 Esto abre el modelo de base diferencial con dos brazos SO-101, pinzas y cuello. Conecta un mando Switch compatible antes de iniciar para teleoperar; consulta [docs/TELEOP_SWITCH.md](docs/TELEOP_SWITCH.md).
 
 Comprueba la integridad estática con `python scripts/validate_twin.py`. El protocolo que convierte este modelo en un gemelo físicamente validado está en [docs/CALIBRATION_PROTOCOL.md](docs/CALIBRATION_PROTOCOL.md).
+
+Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y `python scripts/evaluate_cem.py`. Para PPO/GPU usa `requirements-rl.txt`.
 
 ## Contenido
 

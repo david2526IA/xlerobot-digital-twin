@@ -41,7 +41,7 @@ class XLeRobotReachEnv(gym.Env):
         # [v, omega, 14 targets]. All actuator actions are normalized to [-1, 1].
         self.action_space = spaces.Box(-1.0, 1.0, shape=(16,), dtype=np.float32)
         obs_size = self.model.nq + self.model.nv + 9
-        self.observation_space = spaces.Box(-np.inf, np.inf, shape=(obs_size,), dtype=np.float32)
+        self.observation_space = spaces.Box(-1e6, 1e6, shape=(obs_size,), dtype=np.float32)
         self.renderer = mujoco.Renderer(self.model, height=480, width=640) if render_mode == "rgb_array" else None
         self.steps = 0
 

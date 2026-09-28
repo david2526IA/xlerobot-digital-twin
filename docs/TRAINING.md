@@ -1,5 +1,7 @@
 # Entrenamiento paso a paso
 
+En Windows, `scripts/bootstrap.ps1` instala y ejecuta el smoke test; `scripts/verify.ps1` valida MuJoCo, el paquete fuente para Isaac, Gymnasium y un rollout completo.
+
 ## 1. Preparar MuJoCo
 
 ```powershell
@@ -14,6 +16,15 @@ python scripts/smoke_env.py
 `smoke_env.py` ejecuta una tarea de alcance y guarda una imagen de `neck_rgb`. Si esto falla, no avances a entrenamiento.
 
 ## 2. Entrenar la primera política
+
+La ruta mínima verificada no necesita GPU ni PyTorch:
+
+```powershell
+python scripts/train_cem.py --iterations 40 --population 32
+python scripts/evaluate_cem.py
+```
+
+Para PPO de mayor escala:
 
 ```powershell
 pip install -r requirements-rl.txt
