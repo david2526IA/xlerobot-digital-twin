@@ -32,6 +32,9 @@ python scripts/train_rl.py --timesteps 100000 --output outputs/models/ppo_reach
 python scripts/evaluate_rl.py outputs/models/ppo_reach.zip --episodes 10
 ```
 
+Para registrar métricas en TensorBoard, instala `tensorboard` y añade
+`--tensorboard-log outputs/tensorboard` al comando de entrenamiento.
+
 La primera tarea es alcanzar el cubo; no usa agarre asistido. Es el control de sanidad para cinemática, acciones, cámaras y recompensa. Después se debe implementar una tarea de agarre sólo cuando las pinzas y el contacto estén calibrados.
 
 ## 3. Demostraciones y VLA

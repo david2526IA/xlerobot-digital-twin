@@ -16,6 +16,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-steps", type=int, default=1024)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--output", type=Path, default=Path("outputs/models/ppo_reach"))
+    parser.add_argument("--tensorboard-log", type=Path)
     return parser.parse_args()
 
 
@@ -30,7 +31,7 @@ def main() -> None:
     model = PPO(
         "MlpPolicy", env, verbose=1, seed=args.seed,
         n_steps=args.n_steps, batch_size=args.batch_size,
-        tensorboard_log="outputs/tensorboard",
+        tensorboard_log=str(args.tensorboard_log) if args.tensorboard_log else None,
     )
     model.learn(total_timesteps=args.timesteps)
     args.output.parent.mkdir(parents=True, exist_ok=True)
