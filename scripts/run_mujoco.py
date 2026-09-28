@@ -7,6 +7,7 @@ import mujoco
 import mujoco.viewer
 
 import glfw
+import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_PATH = ROOT / "assets" / "xlerobot" / "xlerobot.xml"
@@ -31,7 +32,7 @@ def main() -> None:
     with mujoco.viewer.launch_passive(model, data) as viewer:
         while viewer.is_running():
             step_start = time.time()
-            if joystick:
+            if joystick is not None:
                 axes = glfw.get_joystick_axes(joystick)
                 buttons = glfw.get_joystick_buttons(joystick)
                 # Left stick: forward/turn. Buttons A/B: right/left gripper open-close.
@@ -44,7 +45,10 @@ def main() -> None:
                 targets["head_tilt"] -= 0.02 * axes[3]
             for name, value in targets.items():
                 if name in ids:
-                    data.ctrl[ids[name]] = value
+                    actuator = ids[name]
+                    low, high = model.actuator_ctrlrange[actuator]
+                    targets[name] = float(np.clip(value, low, high))
+                    data.ctrl[actuator] = targets[name]
             mujoco.mj_step(model, data)
             viewer.sync()
             time.sleep(max(0, model.opt.timestep - (time.time() - step_start)))

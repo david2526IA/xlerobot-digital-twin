@@ -21,3 +21,16 @@ jobs:
       - run: python scripts/record_rollouts.py --episodes 1 --output outputs/ci-rollout
       - run: python scripts/train_cem.py --iterations 2 --population 4 --elite 2 --horizon 20 --output outputs/models/cem_ci.npz
       - run: python scripts/evaluate_cem.py outputs/models/cem_ci.npz --episodes 2
+
+  ppo-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-rl.txt
+      - run: pip install -e .
+      - run: python scripts/train_rl.py --timesteps 64 --n-steps 64 --batch-size 32 --output outputs/models/ppo_ci
+      - run: python scripts/evaluate_rl.py outputs/models/ppo_ci.zip --episodes 1
