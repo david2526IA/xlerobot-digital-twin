@@ -32,6 +32,20 @@ python scripts/train_rl.py --timesteps 100000 --output outputs/models/ppo_reach
 python scripts/evaluate_rl.py outputs/models/ppo_reach.zip --episodes 10
 ```
 
+En Windows también puede hacerse instalación, entrenamiento y evaluación con un solo comando:
+
+```powershell
+.\scripts\train.ps1 -Timesteps 100000 -Output outputs/models/ppo_reach
+```
+
+El entrenador crea checkpoints periódicos en `outputs/models/ppo_reach_checkpoints`
+y un manifiesto reproducible `ppo_reach.run.json`. Para continuar un checkpoint:
+
+```powershell
+.\scripts\train.ps1 -Timesteps 100000 -Output outputs/models/ppo_reach_continued `
+  -Resume outputs/models/ppo_reach_checkpoints/ppo_reach_25000_steps.zip
+```
+
 Para registrar métricas en TensorBoard, instala `tensorboard` y añade
 `--tensorboard-log outputs/tensorboard` al comando de entrenamiento.
 
