@@ -3,3 +3,5 @@ numpy>=1.26
 glfw>=2.8
 pyyaml>=6.0
 huggingface_hub>=0.28
+gymnasium>=1.0
+pillow>=10.0

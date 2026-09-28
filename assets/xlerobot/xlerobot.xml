@@ -325,6 +325,15 @@
         </body>
       </body>
     </body>
+    <!-- Canonical tabletop training scene. All dimensions are in metres. -->
+    <geom name="floor" type="plane" size="5 5 0.1" rgba="0.16 0.16 0.16 1" friction="1.0 0.01 0.001"/>
+    <body name="training_table" pos="0.72 0 0.375">
+      <geom name="training_table_top" type="box" size="0.45 0.35 0.025" mass="12" rgba="0.35 0.22 0.12 1" friction="0.8 0.01 0.001"/>
+    </body>
+    <body name="target_cube" pos="0.48 0 0.80">
+      <freejoint name="target_cube_free"/>
+      <geom name="target_cube_geom" type="box" size="0.0225 0.0225 0.0225" mass="0.08" rgba="0.9 0.15 0.08 1" friction="1.2 0.01 0.001"/>
+    </body>
   </worldbody>
 
   <contact>

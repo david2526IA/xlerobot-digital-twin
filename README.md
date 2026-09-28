@@ -10,6 +10,7 @@ Gemelo digital abierto y reproducible para el XLeRobot 0.4 de base diferencial. 
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+pip install -e .
 python scripts/run_mujoco.py
 ```
 
@@ -25,6 +26,8 @@ Comprueba la integridad estática con `python scripts/validate_twin.py`. El prot
 - `docs/`: calibración, VR, cámaras, Isaac Sim, modelos y sim-to-real.
 - `models/models.yaml`: catálogo con compatibilidad y limitaciones de cada checkpoint.
 - `twin/manifest.yaml`: contrato de embodiment 0.4 y evidencia de cada parámetro.
+- `src/xlerobot_twin/`: entorno Gymnasium para la tarea inicial de alcance.
+- `isaac/`: guía de importación MJCF para Isaac Sim.
 
 ## Arquitectura
 

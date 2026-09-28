@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: xlerobot-digital-twin
+Version: 0.1.0
+Summary: MuJoCo training environment for XLeRobot 0.4
+Requires-Python: >=3.10

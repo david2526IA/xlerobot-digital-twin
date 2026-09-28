@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xlerobot-digital-twin"
+version = "0.1.0"
+description = "MuJoCo training environment for XLeRobot 0.4"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
