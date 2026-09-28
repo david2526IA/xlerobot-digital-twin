@@ -17,12 +17,16 @@ python scripts/smoke_env.py
 
 ## 2. Entrenar la primera política
 
-La ruta mínima verificada no necesita GPU ni PyTorch:
+La ruta mínima de diagnóstico no necesita GPU ni PyTorch:
 
 ```powershell
 python scripts/train_cem.py --iterations 40 --population 32
 python scripts/evaluate_cem.py
 ```
+
+CEM confirma que observaciones, acciones, recompensa y checkpoints están conectados,
+pero no se considera una política competente salvo que su evaluación muestre éxito.
+Para obtener una política utilizable usa PPO y aplica siempre un umbral de aceptación.
 
 Para PPO de mayor escala:
 
@@ -31,6 +35,10 @@ pip install -r requirements-rl.txt
 python scripts/train_rl.py --timesteps 100000 --output outputs/models/ppo_reach
 python scripts/evaluate_rl.py outputs/models/ppo_reach.zip --episodes 10
 ```
+
+En GitHub, el workflow manual `train-ppo` entrena con cuatro entornos, evalúa 50
+episodios sobre semillas separadas, rechaza políticas por debajo del umbral indicado
+y conserva checkpoint, métricas y checkpoints intermedios como artefacto.
 
 En Windows también puede hacerse instalación, entrenamiento y evaluación con un solo comando:
 

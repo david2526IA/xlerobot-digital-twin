@@ -1,0 +1,46 @@
+name: train-ppo
+
+on:
+  workflow_dispatch:
+    inputs:
+      timesteps:
+        description: PPO training timesteps
+        required: true
+        default: "200000"
+      min_success_rate:
+        description: Evaluation acceptance threshold
+        required: true
+        default: "0.20"
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-rl.txt
+      - run: pip install -e .
+      - name: Train PPO
+        run: >-
+          python scripts/train_rl.py
+          --timesteps ${{ inputs.timesteps }}
+          --n-envs 4 --n-steps 256 --batch-size 256
+          --checkpoint-freq 25000
+          --output outputs/models/ppo_reach
+      - name: Evaluate and enforce quality gate
+        run: >-
+          python scripts/evaluate_rl.py outputs/models/ppo_reach.zip
+          --episodes 50 --seed 10000
+          --min-success-rate ${{ inputs.min_success_rate }}
+          --json-output outputs/models/ppo_reach.metrics.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ppo-reach-${{ github.run_id }}
+          path: outputs/models/
+          if-no-files-found: error
+          retention-days: 30

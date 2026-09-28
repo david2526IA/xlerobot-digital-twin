@@ -19,6 +19,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timesteps", type=int, default=100_000)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--n-steps", type=int, default=1024)
+    parser.add_argument("--n-envs", type=int, default=1)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--output", type=Path, default=Path("outputs/models/ppo_reach"))
     parser.add_argument("--tensorboard-log", type=Path)
@@ -30,12 +31,12 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    if args.timesteps <= 0 or args.n_steps <= 1 or args.batch_size <= 1:
-        raise SystemExit("timesteps, n-steps and batch-size must be positive")
-    if args.n_steps % args.batch_size:
-        raise SystemExit("n-steps must be divisible by batch-size for this single-environment trainer")
+    if args.timesteps <= 0 or args.n_steps <= 1 or args.batch_size <= 1 or args.n_envs <= 0:
+        raise SystemExit("timesteps, n-steps, n-envs and batch-size must be positive")
+    if (args.n_steps * args.n_envs) % args.batch_size:
+        raise SystemExit("n-steps * n-envs must be divisible by batch-size")
 
-    env = make_vec_env(XLeRobotReachEnv, n_envs=1, seed=args.seed)
+    env = make_vec_env(XLeRobotReachEnv, n_envs=args.n_envs, seed=args.seed)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     tensorboard_log = str(args.tensorboard_log) if args.tensorboard_log else None
     if args.resume:
@@ -68,6 +69,7 @@ def main() -> None:
         "timesteps_this_run": args.timesteps,
         "seed": args.seed,
         "n_steps": args.n_steps,
+        "n_envs": args.n_envs,
         "batch_size": args.batch_size,
         "resumed_from": str(args.resume) if args.resume else None,
         "stable_baselines3": stable_baselines3.__version__,
