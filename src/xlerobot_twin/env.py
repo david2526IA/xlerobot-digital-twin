@@ -61,7 +61,7 @@ class XLeRobotReachEnv(gym.Env):
         mujoco.mj_resetData(self.model, self.data)
         cube_xy = self.np_random.uniform([0.35, -0.18], [0.60, 0.18])
         adr = int(self.cube_joint.qposadr[0])
-        self.data.qpos[adr:adr + 7] = [cube_xy[0], cube_xy[1], 0.80, 1, 0, 0, 0]
+        self.data.qpos[adr:adr + 7] = [cube_xy[0], cube_xy[1], 0.8025, 1, 0, 0, 0]
         self.data.qvel[:] = 0
         if self.domain_randomization:
             cube_geom = self.model.geom("target_cube_geom").id

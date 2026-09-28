@@ -3,8 +3,13 @@ $python = ".\.venv\Scripts\python.exe"
 if (-not (Test-Path -LiteralPath $python)) {
     throw "Missing .venv. Run scripts\bootstrap.ps1 first."
 }
-& $python scripts\validate_twin.py
-& $python scripts\validate_isaac_source.py
-& $python -m pytest -q
-& $python scripts\record_rollouts.py --episodes 1 --output outputs\verification_rollout
+function Invoke-Checked {
+    param([string[]]$Arguments)
+    & $python @Arguments
+    if ($LASTEXITCODE -ne 0) { throw "Command failed: python $Arguments" }
+}
+Invoke-Checked @("scripts\validate_twin.py")
+Invoke-Checked @("scripts\validate_isaac_source.py")
+Invoke-Checked @("-m", "pytest", "-q")
+Invoke-Checked @("scripts\record_rollouts.py", "--episodes", "1", "--output", "outputs\verification_rollout")
 Write-Host "Verification complete."

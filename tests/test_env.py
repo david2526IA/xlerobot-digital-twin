@@ -1,4 +1,5 @@
 import numpy as np
+import mujoco
 from gymnasium.utils.env_checker import check_env
 
 from xlerobot_twin import XLeRobotReachEnv
@@ -15,4 +16,15 @@ def test_gym_api_and_deterministic_reset():
     assert isinstance(terminated, bool)
     assert isinstance(truncated, bool)
     assert "success" in info
+    env.close()
+
+
+def test_cube_settles_on_table_surface():
+    env = XLeRobotReachEnv(domain_randomization=False)
+    env.reset(seed=5)
+    for _ in range(500):
+        mujoco.mj_step(env.model, env.data)
+    cube_z = env.data.xpos[env.model.body("target_cube").id, 2]
+    # Table surface 0.775 m + cube half-height 0.0225 m.
+    assert 0.792 < cube_z < 0.803, cube_z
     env.close()
