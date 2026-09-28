@@ -1,5 +1,7 @@
 # XLeRobot 0.4 Digital Twin
 
+[![twin-ci](https://github.com/david2526IA/xlerobot-digital-twin/actions/workflows/ci.yml/badge.svg)](https://github.com/david2526IA/xlerobot-digital-twin/actions/workflows/ci.yml)
+
 Gemelo digital abierto y reproducible para el XLeRobot 0.4 de base diferencial. El objetivo inmediato es simulación, teleoperación y aprendizaje en **MuJoCo**; Isaac Sim queda documentado como ruta de importación cuando se haya validado el URDF específico de 0.4.
 
 > Estado: el modelo MuJoCo y sus mallas se incluyen y se pueden ejecutar. El fabricante/proyecto upstream no ha publicado un URDF oficial de 0.4; por ello este repositorio no afirma que el URDF de 0.3 represente la base 0.4.
