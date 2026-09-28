@@ -1,0 +1,3 @@
+# LeRobot v0.4+ provides LeRobotDataset v3 (create/add_frame/save_episode/finalize).
+lerobot>=0.4,<0.7
+torch>=2.5,<3

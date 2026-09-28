@@ -35,7 +35,14 @@ La primera tarea es alcanzar el cubo; no usa agarre asistido. Es el control de s
 
 ## 3. Demostraciones y VLA
 
-Genera primero episodios de prueba con `python scripts/record_rollouts.py --episodes 100`. Los `.npz` guardan observación, acción, recompensa e instrucción sin esconder ninguna conversión. Teleopera después con el mando en `scripts/run_mujoco.py` y registra la misma estructura. Convierte únicamente demostraciones de calidad al formato LeRobot. Empieza con SmolVLA, que requiere fine-tuning sobre las mismas vistas de cámara y la misma semántica de acción.
+Genera primero episodios de prueba con cámara mediante `python scripts/record_rollouts.py --episodes 100 --images`. Los `.npz` guardan observación, acción, recompensa, imagen del cuello e instrucción sin esconder ninguna conversión. Convierte al formato oficial v3 con:
+
+```powershell
+pip install -r requirements-lerobot.txt
+python scripts/export_lerobot.py datasets/raw/reach_random
+```
+
+LeRobot exige `create`, `add_frame`, `save_episode` y finalmente `finalize`; omitir `finalize` deja Parquet incompleto. Los rollouts aleatorios sólo sirven para verificar el formato: para ACT/SmolVLA deben grabarse demostraciones competentes.
 
 ## 4. Randomización antes de sim-to-real
 
