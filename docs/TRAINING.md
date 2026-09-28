@@ -3,6 +3,8 @@
 ## 1. Preparar MuJoCo
 
 ```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 pip install -e .
 python scripts/validate_twin.py

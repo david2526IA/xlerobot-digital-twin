@@ -7,7 +7,7 @@ Gemelo digital abierto y reproducible para el XLeRobot 0.4 de base diferencial. 
 ## Inicio rápido
 
 ```powershell
-python -m venv .venv
+py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 pip install -e .

@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "xlerobot-digital-twin"
 version = "0.1.0"
 description = "MuJoCo training environment for XLeRobot 0.4"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.15"
 
 [tool.setuptools.packages.find]
 where = ["src"]
