@@ -21,4 +21,11 @@ if not required <= cameras:
 actuators = root.find("actuator")
 if actuators is None or len(actuators) != 16:
     raise SystemExit(f"Expected 16 actuators, found {0 if actuators is None else len(actuators)}")
+sites = {site.get("name") for site in root.findall(".//site")}
+required_sites = {"left_gripper_tip", "right_gripper_tip"}
+if not required_sites <= sites:
+    raise SystemExit(f"Missing gripper sites: {sorted(required_sites - sites)}")
+for helper in (ROOT / "isaac" / "import.ps1", ROOT / "isaac" / "verify_usd.py"):
+    if not helper.is_file():
+        raise SystemExit(f"Missing Isaac helper: {helper}")
 print(f"PASS: Isaac MJCF source | meshes={len(root.findall('./asset/mesh'))} cameras={sorted(required)} actuators=16")

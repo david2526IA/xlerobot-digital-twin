@@ -2,6 +2,19 @@
 
 Isaac Sim puede importar MJCF directamente. Esta es la ruta recomendada porque el formato fuente del repositorio contiene los actuadores y límites de MuJoCo; NVIDIA recomienda MJCF cuando se quiere preservar esa configuración de actuadores.
 
+## Importación reproducible por línea de comandos
+
+Para Isaac Sim 6.1, indica la carpeta de instalación desde PowerShell:
+
+```powershell
+.\isaac\import.ps1 -IsaacRoot "C:\isaacsim"
+```
+
+El comando usa el ejemplo oficial `mjcf_import.py`, escribe
+`isaac/generated/xlerobot.usd` y lo abre con `pxr` para comprobar las
+articulaciones esperadas. `generated` es un artefacto regenerable y no se edita a
+mano.
+
 ## Importar
 
 1. Instala Isaac Sim con una GPU RTX y abre la aplicación.
