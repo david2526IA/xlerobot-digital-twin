@@ -1,8 +1,0 @@
-README.md
-pyproject.toml
-src/xlerobot_digital_twin.egg-info/PKG-INFO
-src/xlerobot_digital_twin.egg-info/SOURCES.txt
-src/xlerobot_digital_twin.egg-info/dependency_links.txt
-src/xlerobot_digital_twin.egg-info/top_level.txt
-src/xlerobot_twin/__init__.py
-src/xlerobot_twin/env.py

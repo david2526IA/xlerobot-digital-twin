@@ -5,3 +5,4 @@ models/checkpoints/
 calibration/measurements.yaml
 datasets/raw/
 outputs/
+src/*.egg-info/
