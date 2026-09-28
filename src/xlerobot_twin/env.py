@@ -36,8 +36,8 @@ class XLeRobotReachEnv(gym.Env):
         self.render_mode, self.horizon, self.domain_randomization = render_mode, horizon, domain_randomization
         self.ids = {mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_ACTUATOR, i): i for i in range(self.model.nu)}
         self.cube_joint = self.model.joint("target_cube_free")
-        self.left_ee = self.model.body("Fixed_Jaw").id
-        self.right_ee = self.model.body("Fixed_Jaw_2").id
+        self.left_ee = self.model.site("left_gripper_tip").id
+        self.right_ee = self.model.site("right_gripper_tip").id
         # [v, omega, 14 targets]. All actuator actions are normalized to [-1, 1].
         self.action_space = spaces.Box(-1.0, 1.0, shape=(16,), dtype=np.float32)
         obs_size = self.model.nq + self.model.nv + 9
@@ -47,19 +47,22 @@ class XLeRobotReachEnv(gym.Env):
 
     def _observation(self) -> np.ndarray:
         cube = self.data.xpos[self.model.body("target_cube").id]
-        ee = np.concatenate((self.data.xpos[self.left_ee], self.data.xpos[self.right_ee]))
+        ee = np.concatenate((self.data.site_xpos[self.left_ee], self.data.site_xpos[self.right_ee]))
         return np.concatenate((self.data.qpos, self.data.qvel, cube, ee)).astype(np.float32)
 
     def _info(self) -> dict[str, Any]:
         cube = self.data.xpos[self.model.body("target_cube").id]
-        left = self.data.xpos[self.left_ee]
-        right = self.data.xpos[self.right_ee]
+        left = self.data.site_xpos[self.left_ee]
+        right = self.data.site_xpos[self.right_ee]
         return {"left_distance": float(np.linalg.norm(left - cube)), "right_distance": float(np.linalg.norm(right - cube))}
 
     def reset(self, *, seed: int | None = None, options: dict[str, Any] | None = None):
         super().reset(seed=seed)
         mujoco.mj_resetData(self.model, self.data)
-        cube_xy = self.np_random.uniform([0.35, -0.18], [0.60, 0.18])
+        # The table begins at x=0.10 and physically stops the mobile base there.
+        # Keep the reach target inside the measured arm workspace from that edge;
+        # farther targets belong to a separate navigation/manipulation curriculum.
+        cube_xy = self.np_random.uniform([0.18, -0.15], [0.30, 0.15])
         adr = int(self.cube_joint.qposadr[0])
         self.data.qpos[adr:adr + 7] = [cube_xy[0], cube_xy[1], 0.8025, 1, 0, 0, 0]
         self.data.qvel[:] = 0
@@ -87,7 +90,9 @@ class XLeRobotReachEnv(gym.Env):
         self.steps += 1
         info = self._info()
         distance = min(info["left_distance"], info["right_distance"])
-        success = distance < 0.035
+        # 5 cm is approximately one cube width and measures tip-to-object reach,
+        # without requiring the collision meshes to interpenetrate.
+        success = distance < 0.05
         reward = -distance + (1.0 if success else 0.0)
         terminated = success
         truncated = self.steps >= self.horizon

@@ -13,6 +13,7 @@ En Windows, la ruta recomendada es:
 ```powershell
 .\scripts\bootstrap.ps1
 .\scripts\verify.ps1
+.\scripts\train.ps1 -Timesteps 100000 -Output outputs/models/ppo_reach
 ```
 
 El equivalente manual es:
@@ -29,12 +30,14 @@ Esto abre el modelo de base diferencial con dos brazos SO-101, pinzas y cuello. 
 
 Comprueba la integridad estática con `python scripts/validate_twin.py`. El protocolo que convierte este modelo en un gemelo físicamente validado está en [docs/CALIBRATION_PROTOCOL.md](docs/CALIBRATION_PROTOCOL.md).
 
-Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y `python scripts/evaluate_cem.py`. Para PPO/GPU usa `requirements-rl.txt`.
+Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y `python scripts/evaluate_cem.py`. Para PPO/GPU usa `scripts/train.ps1`. Para aprendizaje por demostraciones, `scripts/record_expert.py` genera únicamente episodios que alcanzan el objetivo y pueden convertirse a LeRobotDataset v3.
 
 ## Contenido
 
 - `assets/xlerobot/`: MJCF y mallas del modelo de dos ruedas.
 - `scripts/run_mujoco.py`: simulador y teleoperación de mando.
+- `scripts/train.ps1`: instalación, entrenamiento PPO reanudable y evaluación.
+- `scripts/record_expert.py`: demostraciones de alcance mediante IK diferencial.
 - `scripts/download_model.py`: descarga explícita y reproducible de checkpoints.
 - `docs/`: calibración, VR, cámaras, Isaac Sim, modelos y sim-to-real.
 - `models/models.yaml`: catálogo con compatibilidad y limitaciones de cada checkpoint.

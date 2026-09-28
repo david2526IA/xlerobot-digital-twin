@@ -28,3 +28,13 @@ def test_cube_settles_on_table_surface():
     # Table surface 0.775 m + cube half-height 0.0225 m.
     assert 0.792 < cube_z < 0.803, cube_z
     env.close()
+
+
+def test_reach_targets_are_inside_table_edge_workspace():
+    env = XLeRobotReachEnv(domain_randomization=False)
+    for seed in range(20):
+        observation, _ = env.reset(seed=seed)
+        cube = observation[-9:-6]
+        assert 0.18 <= cube[0] <= 0.30
+        assert -0.15 <= cube[1] <= 0.15
+    env.close()

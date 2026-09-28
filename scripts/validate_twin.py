@@ -20,6 +20,9 @@ if missing:
 for camera in ("neck_rgb", "neck_depth"):
     if mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_CAMERA, camera) < 0:
         raise SystemExit(f"Missing camera: {camera}")
+for site in ("left_gripper_tip", "right_gripper_tip"):
+    if mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, site) < 0:
+        raise SystemExit(f"Missing end-effector site: {site}")
 left = model.body("left_wheel").pos
 right = model.body("right_wheel").pos
 track = abs(left[1] - right[1])

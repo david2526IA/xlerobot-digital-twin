@@ -19,6 +19,7 @@ jobs:
       - run: python scripts/validate_isaac_source.py
       - run: pytest -q
       - run: python scripts/record_rollouts.py --episodes 1 --output outputs/ci-rollout
+      - run: python scripts/record_expert.py --episodes 1 --max-attempts 5 --output outputs/ci-expert
       - run: python scripts/train_cem.py --iterations 2 --population 4 --elite 2 --horizon 20 --output outputs/models/cem_ci.npz
       - run: python scripts/evaluate_cem.py outputs/models/cem_ci.npz --episodes 2
 

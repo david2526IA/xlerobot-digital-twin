@@ -53,11 +53,21 @@ La primera tarea es alcanzar el cubo; no usa agarre asistido. Es el control de s
 
 ## 3. Demostraciones y VLA
 
-Genera primero episodios de prueba con cámara mediante `python scripts/record_rollouts.py --episodes 100 --images`. Los `.npz` guardan observación, acción, recompensa, imagen del cuello e instrucción sin esconder ninguna conversión. Convierte al formato oficial v3 con:
+Genera demostraciones competentes con el controlador IK incluido. Los intentos fallidos
+se rechazan y no contaminan el dataset:
+
+```powershell
+python scripts/record_expert.py --episodes 100 --images --output datasets/expert/reach
+```
+
+Para probar solamente el formato también se pueden generar acciones aleatorias con
+`python scripts/record_rollouts.py --episodes 10 --images`. Los `.npz` guardan
+observación, acción, recompensa, imagen del cuello e instrucción sin esconder ninguna
+conversión. Convierte las demostraciones al formato oficial v3 con:
 
 ```powershell
 pip install -r requirements-lerobot.txt
-python scripts/export_lerobot.py datasets/raw/reach_random
+python scripts/export_lerobot.py datasets/expert/reach
 ```
 
 LeRobot exige `create`, `add_frame`, `save_episode` y finalmente `finalize`; omitir `finalize` deja Parquet incompleto. Los rollouts aleatorios sólo sirven para verificar el formato: para ACT/SmolVLA deben grabarse demostraciones competentes.
