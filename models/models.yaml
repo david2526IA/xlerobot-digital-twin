@@ -1,0 +1,23 @@
+models:
+  - id: lerobot/smolvla_base
+    kind: foundation
+    simulator: MuJoCo
+    task: Base VLA; requiere fine-tuning
+    status: recommended
+    download: python scripts/download_model.py lerobot/smolvla_base
+  - id: xuweiwu/pi05_bimanual_so101_lora
+    kind: pi0.5 LoRA
+    simulator: MuJoCo
+    task: Bimanual SO-101 / toy-box cleanup
+    status: reference-only
+    dataset: xuweiwu/bimanual-toy-box-cleanup
+  - id: madokalif/xlerobot-pi05-bottle
+    kind: pi0.5 checkpoint
+    simulator: MuJoCo
+    task: Recoger botella
+    status: sim-only; no validado en robot real
+  - id: lissajous/xlerobot-act-local-grasp-v1
+    kind: ACT
+    simulator: MuJoCo
+    task: Fase local de agarre con brazo derecho
+    status: task-specific
