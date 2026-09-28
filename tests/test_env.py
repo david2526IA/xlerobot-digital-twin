@@ -53,3 +53,16 @@ def test_stationary_curriculum_ignores_base_actions():
     np.testing.assert_allclose(baseline.data.qpos, commanded.data.qpos, atol=1e-10)
     baseline.close()
     commanded.close()
+
+
+def test_right_arm_curriculum_contract():
+    env = XLeRobotReachEnv(domain_randomization=False, action_mode="right_arm", horizon=1)
+    observation, _ = env.reset(seed=11)
+    assert env.action_space.shape == (4,)
+    assert observation[-9] >= 0.18
+    assert observation[-8] >= 0.0
+    _, reward, _, truncated, info = env.step(np.zeros(4, dtype=np.float32))
+    assert np.isfinite(reward)
+    assert truncated
+    assert "right_distance" in info
+    env.close()

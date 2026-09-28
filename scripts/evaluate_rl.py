@@ -17,12 +17,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=1000)
     parser.add_argument("--min-success-rate", type=float, default=0.0)
     parser.add_argument("--json-output", type=Path)
+    parser.add_argument("--action-mode", choices=("right_arm", "full"), default="right_arm")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    env = XLeRobotReachEnv()
+    env = XLeRobotReachEnv(action_mode=args.action_mode)
     model = PPO.load(args.checkpoint, env=env)
     returns: list[float] = []
     successes = 0

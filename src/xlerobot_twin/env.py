@@ -17,6 +17,7 @@ ARM_ACTUATORS = (
     "Rotation_R", "Pitch_R", "Elbow_R", "Wrist_Pitch_R", "Wrist_Roll_R", "Jaw_R",
     "head_pan", "head_tilt",
 )
+RIGHT_REACH_ACTUATORS = ("Rotation_R", "Pitch_R", "Elbow_R", "Wrist_Pitch_R")
 
 
 class XLeRobotReachEnv(gym.Env):
@@ -36,17 +37,22 @@ class XLeRobotReachEnv(gym.Env):
         horizon: int = 300,
         domain_randomization: bool = True,
         base_enabled: bool = False,
+        action_mode: str = "full",
     ):
         self.model = mujoco.MjModel.from_xml_path(str(MODEL_PATH))
         self.data = mujoco.MjData(self.model)
         self.render_mode, self.horizon, self.domain_randomization = render_mode, horizon, domain_randomization
         self.base_enabled = base_enabled
+        if action_mode not in {"full", "right_arm"}:
+            raise ValueError(f"Unknown action_mode: {action_mode}")
+        self.action_mode = action_mode
         self.ids = {mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_ACTUATOR, i): i for i in range(self.model.nu)}
         self.cube_joint = self.model.joint("target_cube_free")
         self.left_ee = self.model.site("left_gripper_tip").id
         self.right_ee = self.model.site("right_gripper_tip").id
         # [v, omega, 14 targets]. All actuator actions are normalized to [-1, 1].
-        self.action_space = spaces.Box(-1.0, 1.0, shape=(16,), dtype=np.float32)
+        action_size = 16 if action_mode == "full" else len(RIGHT_REACH_ACTUATORS)
+        self.action_space = spaces.Box(-1.0, 1.0, shape=(action_size,), dtype=np.float32)
         obs_size = self.model.nq + self.model.nv + 9
         self.observation_space = spaces.Box(-1e6, 1e6, shape=(obs_size,), dtype=np.float32)
         self.renderer = mujoco.Renderer(self.model, height=480, width=640) if render_mode == "rgb_array" else None
@@ -72,7 +78,8 @@ class XLeRobotReachEnv(gym.Env):
         # The table begins at x=0.10 and physically stops the mobile base there.
         # Keep the reach target inside the measured arm workspace from that edge;
         # farther targets belong to a separate navigation/manipulation curriculum.
-        cube_xy = self.np_random.uniform([0.18, -0.15], [0.30, 0.15])
+        y_range = [0.0, 0.15] if self.action_mode == "right_arm" else [-0.15, 0.15]
+        cube_xy = self.np_random.uniform([0.18, y_range[0]], [0.30, y_range[1]])
         adr = int(self.cube_joint.qposadr[0])
         self.data.qpos[adr:adr + 7] = [cube_xy[0], cube_xy[1], 0.8025, 1, 0, 0, 0]
         self.data.qvel[:] = 0
@@ -87,6 +94,11 @@ class XLeRobotReachEnv(gym.Env):
 
     def step(self, action: np.ndarray):
         action = np.asarray(action, dtype=np.float64).clip(-1, 1)
+        if self.action_mode == "right_arm":
+            reduced_action = action
+            action = np.zeros(16, dtype=np.float64)
+            for source, name in enumerate(RIGHT_REACH_ACTUATORS):
+                action[2 + ARM_ACTUATORS.index(name)] = reduced_action[source]
         # MuJoCo model has torque-like forward/turn tendons. Keep controls conservative.
         self.data.ctrl[self.ids["forward"]] = action[0] * 0.35 if self.base_enabled else 0.0
         self.data.ctrl[self.ids["turn"]] = action[1] * 0.20 if self.base_enabled else 0.0
@@ -99,7 +111,7 @@ class XLeRobotReachEnv(gym.Env):
             mujoco.mj_step(self.model, self.data)
         self.steps += 1
         info = self._info()
-        distance = min(info["left_distance"], info["right_distance"])
+        distance = info["right_distance"] if self.action_mode == "right_arm" else min(info["left_distance"], info["right_distance"])
         # 5 cm is approximately one cube width and measures tip-to-object reach,
         # without requiring the collision meshes to interpenetrate.
         success = distance < 0.05

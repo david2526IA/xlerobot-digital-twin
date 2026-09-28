@@ -26,6 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resume", type=Path, help="Existing PPO .zip checkpoint")
     parser.add_argument("--checkpoint-freq", type=int, default=25_000)
     parser.add_argument("--device", default="auto", help="auto, cpu, cuda, ...")
+    parser.add_argument("--action-mode", choices=("right_arm", "full"), default="right_arm")
     return parser.parse_args()
 
 
@@ -36,7 +37,12 @@ def main() -> None:
     if (args.n_steps * args.n_envs) % args.batch_size:
         raise SystemExit("n-steps * n-envs must be divisible by batch-size")
 
-    env = make_vec_env(XLeRobotReachEnv, n_envs=args.n_envs, seed=args.seed)
+    env = make_vec_env(
+        XLeRobotReachEnv,
+        n_envs=args.n_envs,
+        seed=args.seed,
+        env_kwargs={"action_mode": args.action_mode},
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     tensorboard_log = str(args.tensorboard_log) if args.tensorboard_log else None
     if args.resume:
@@ -66,6 +72,7 @@ def main() -> None:
     manifest = {
         "algorithm": "PPO",
         "environment": "XLeRobotReachEnv",
+        "action_mode": args.action_mode,
         "timesteps_this_run": args.timesteps,
         "seed": args.seed,
         "n_steps": args.n_steps,

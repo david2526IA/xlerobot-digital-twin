@@ -33,5 +33,5 @@ jobs:
           cache: pip
       - run: pip install -r requirements-rl.txt
       - run: pip install -e .
-      - run: python scripts/train_rl.py --timesteps 64 --n-steps 64 --batch-size 32 --output outputs/models/ppo_ci
-      - run: python scripts/evaluate_rl.py outputs/models/ppo_ci.zip --episodes 1
+      - run: python scripts/train_rl.py --action-mode right_arm --timesteps 64 --n-steps 64 --batch-size 32 --output outputs/models/ppo_ci
+      - run: python scripts/evaluate_rl.py outputs/models/ppo_ci.zip --action-mode right_arm --episodes 1
