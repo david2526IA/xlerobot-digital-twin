@@ -1,0 +1,24 @@
+robot:
+  name: XLeRobot
+  version: "0.4.0 servo dual-wheel"
+  frame_convention: "MuJoCo world: +x forward, +y left, +z up"
+base:
+  type: differential_drive
+  wheel_radius_m: 0.05
+  wheel_track_m: 0.25
+  drive_motors: [base_left_wheel, base_right_wheel]
+  supporting_wheels: caster/walker wheels
+arms:
+  platform: SO-ARM101 / SO-101
+  count: 2
+  joints_per_arm: 6
+  joint_order: [shoulder_pan, shoulder_lift, elbow_flex, wrist_flex, wrist_roll, gripper]
+head:
+  dof: [pan, tilt]
+  camera: neck_rgb
+evidence:
+  wheel_geometry: official XLeRobot xlerobot_2wheels configuration
+  arm_joint_limits_and_sts3215: upstream MuJoCo-GS-Web model
+  base_and_head_geometry: upstream MuJoCo-GS-Web meshes plus XLeRobot 0.4 STEP CAD
+  camera_intrinsics: pending physical calibration
+  masses_friction_latency: pending physical identification

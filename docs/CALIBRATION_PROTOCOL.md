@@ -1,0 +1,19 @@
+# Protocolo de fidelidad del gemelo 0.4
+
+Este gemelo separa parámetros **confirmados** de parámetros **a identificar**. Los confirmados son: base diferencial, radio `0.050 m`, distancia entre ruedas `0.250 m`, dos SO-101 de 6 acciones, dos motores de cuello y ruedas auxiliares. Los valores proceden del controlador oficial `xlerobot_2wheels` y de la guía oficial de montaje 0.4.
+
+## Medición obligatoria en el robot real
+
+| Bloque | Medición | Criterio de aceptación |
+| --- | --- | --- |
+| Base | 10 rectas de 2 m y 10 giros de 360° | error longitudinal < 2 %, yaw < 3° |
+| Brazos | 20 poses, efector con marcador | RMSE de posición < 10 mm |
+| Cuello/cámara | tablero Charuco y transformada base-cámara | reproyección < 1 px |
+| Dinámica | escalón de rueda y 6 articulaciones | tiempo/overshoot dentro de 10 % |
+| Contacto | pinzar objeto de masa conocida | éxito y deslizamiento coherentes |
+
+Guarda los resultados en `calibration/measurements.yaml` y actualiza los parámetros de MuJoCo sólo con resultados medidos.
+
+## Cámara de cuello
+
+`neck_rgb` está ligado al marco óptico del cuello. El campo de visión de 60° es intencionalmente provisional: no debe usarse para entrenamiento visual sim-to-real hasta sustituirlo por `fx`, `fy`, `cx`, `cy`, resolución, distorsión y latencia de la cámara instalada.

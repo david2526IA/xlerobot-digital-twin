@@ -15,6 +15,8 @@ python scripts/run_mujoco.py
 
 Esto abre el modelo de base diferencial con dos brazos SO-101, pinzas y cuello. Conecta un mando Switch compatible antes de iniciar para teleoperar; consulta [docs/TELEOP_SWITCH.md](docs/TELEOP_SWITCH.md).
 
+Comprueba la integridad estática con `python scripts/validate_twin.py`. El protocolo que convierte este modelo en un gemelo físicamente validado está en [docs/CALIBRATION_PROTOCOL.md](docs/CALIBRATION_PROTOCOL.md).
+
 ## Contenido
 
 - `assets/xlerobot/`: MJCF y mallas del modelo de dos ruedas.
@@ -22,6 +24,7 @@ Esto abre el modelo de base diferencial con dos brazos SO-101, pinzas y cuello. 
 - `scripts/download_model.py`: descarga explícita y reproducible de checkpoints.
 - `docs/`: calibración, VR, cámaras, Isaac Sim, modelos y sim-to-real.
 - `models/models.yaml`: catálogo con compatibilidad y limitaciones de cada checkpoint.
+- `twin/manifest.yaml`: contrato de embodiment 0.4 y evidencia de cada parámetro.
 
 ## Arquitectura
 
