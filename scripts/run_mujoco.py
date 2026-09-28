@@ -18,6 +18,8 @@ def main() -> None:
     model = mujoco.MjModel.from_xml_path(str(MODEL_PATH))
     data = mujoco.MjData(model)
     ids = actuator_ids(model)
+    if not glfw.init():
+        raise RuntimeError("GLFW could not initialize; check graphics drivers/display access.")
     joystick = glfw.JOYSTICK_1 if glfw.joystick_present(glfw.JOYSTICK_1) else None
     if joystick is not None:
         print(f"Gamepad: {glfw.get_joystick_name(joystick)}")
