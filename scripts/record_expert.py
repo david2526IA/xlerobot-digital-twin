@@ -32,7 +32,7 @@ def expert_action(env: XLeRobotReachEnv) -> np.ndarray:
     target_heading = np.arctan2(cube[1] - base_position[1], cube[0] - base_position[0])
     heading_error = np.arctan2(np.sin(target_heading - heading), np.cos(target_heading - heading))
     action[1] = np.clip(2.0 * heading_error, -0.6, 0.6)
-    if np.linalg.norm(error[:2]) > 0.16:
+    if env.base_enabled and np.linalg.norm(error[:2]) > 0.16:
         action[0] = 0.8
 
     jacp = np.zeros((3, env.model.nv))

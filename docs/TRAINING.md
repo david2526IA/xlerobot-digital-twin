@@ -57,7 +57,11 @@ y un manifiesto reproducible `ppo_reach.run.json`. Para continuar un checkpoint:
 Para registrar métricas en TensorBoard, instala `tensorboard` y añade
 `--tensorboard-log outputs/tensorboard` al comando de entrenamiento.
 
-La primera tarea es alcanzar el cubo; no usa agarre asistido. Es el control de sanidad para cinemática, acciones, cámaras y recompensa. Después se debe implementar una tarea de agarre sólo cuando las pinzas y el contacto estén calibrados.
+La primera tarea es alcanzar el cubo con la base estacionaria junto a la mesa; las dos
+acciones de base se reservan pero se ignoran durante esta fase. No usa agarre
+asistido. Es el control de sanidad para cinemática, acciones, cámaras y recompensa.
+La locomoción debe entrenarse como currículo separado antes de combinarlas. Después
+se debe implementar agarre sólo cuando las pinzas y el contacto estén calibrados.
 
 ## 3. Demostraciones y VLA
 

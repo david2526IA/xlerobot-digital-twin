@@ -30,10 +30,17 @@ class XLeRobotReachEnv(gym.Env):
 
     metadata = {"render_modes": ["rgb_array", "human"], "render_fps": 30}
 
-    def __init__(self, render_mode: str | None = None, horizon: int = 300, domain_randomization: bool = True):
+    def __init__(
+        self,
+        render_mode: str | None = None,
+        horizon: int = 300,
+        domain_randomization: bool = True,
+        base_enabled: bool = False,
+    ):
         self.model = mujoco.MjModel.from_xml_path(str(MODEL_PATH))
         self.data = mujoco.MjData(self.model)
         self.render_mode, self.horizon, self.domain_randomization = render_mode, horizon, domain_randomization
+        self.base_enabled = base_enabled
         self.ids = {mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_ACTUATOR, i): i for i in range(self.model.nu)}
         self.cube_joint = self.model.joint("target_cube_free")
         self.left_ee = self.model.site("left_gripper_tip").id
@@ -59,6 +66,9 @@ class XLeRobotReachEnv(gym.Env):
     def reset(self, *, seed: int | None = None, options: dict[str, Any] | None = None):
         super().reset(seed=seed)
         mujoco.mj_resetData(self.model, self.data)
+        # The first curriculum stage is stationary manipulation. Place the base
+        # near the table while preserving a collision-safe gap.
+        self.data.qpos[0] = 0.06
         # The table begins at x=0.10 and physically stops the mobile base there.
         # Keep the reach target inside the measured arm workspace from that edge;
         # farther targets belong to a separate navigation/manipulation curriculum.
@@ -78,8 +88,8 @@ class XLeRobotReachEnv(gym.Env):
     def step(self, action: np.ndarray):
         action = np.asarray(action, dtype=np.float64).clip(-1, 1)
         # MuJoCo model has torque-like forward/turn tendons. Keep controls conservative.
-        self.data.ctrl[self.ids["forward"]] = action[0] * 0.35
-        self.data.ctrl[self.ids["turn"]] = action[1] * 0.20
+        self.data.ctrl[self.ids["forward"]] = action[0] * 0.35 if self.base_enabled else 0.0
+        self.data.ctrl[self.ids["turn"]] = action[1] * 0.20 if self.base_enabled else 0.0
         for index, name in enumerate(ARM_ACTUATORS, start=2):
             actuator = self.model.actuator(name)
             low, high = self.model.actuator_ctrlrange[actuator.id]

@@ -38,3 +38,18 @@ def test_reach_targets_are_inside_table_edge_workspace():
         assert 0.18 <= cube[0] <= 0.30
         assert -0.15 <= cube[1] <= 0.15
     env.close()
+
+
+def test_stationary_curriculum_ignores_base_actions():
+    baseline = XLeRobotReachEnv(domain_randomization=False)
+    commanded = XLeRobotReachEnv(domain_randomization=False)
+    baseline.reset(seed=7)
+    commanded.reset(seed=7)
+    base_action = np.zeros(16, dtype=np.float32)
+    base_action[:2] = 1.0
+    for _ in range(20):
+        baseline.step(np.zeros(16, dtype=np.float32))
+        commanded.step(base_action)
+    np.testing.assert_allclose(baseline.data.qpos, commanded.data.qpos, atol=1e-10)
+    baseline.close()
+    commanded.close()
