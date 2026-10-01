@@ -10,10 +10,16 @@ Para Isaac Sim 6.1, indica la carpeta de instalación desde PowerShell:
 .\isaac\import.ps1 -IsaacRoot "C:\isaacsim"
 ```
 
-El comando usa el ejemplo oficial `mjcf_import.py`, escribe
-`isaac/generated/xlerobot.usd` y lo abre con `pxr` para comprobar las
+El comando usa el ejemplo oficial `mjcf_import.py`, escribe el paquete bajo
+`isaac/generated/` y abre el USD resultante con `pxr` para comprobar las
 articulaciones esperadas. `generated` es un artefacto regenerable y no se edita a
 mano.
+
+Para verlo después de importar:
+
+```powershell
+.\isaac\open.ps1 -IsaacRoot "C:\isaacsim"
+```
 
 ## Importar
 

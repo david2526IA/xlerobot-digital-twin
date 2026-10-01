@@ -57,6 +57,11 @@ MuJoCo cámara del cuello ──> imagen RGB / pose ──> VLA o visor VR
 
 Los modelos preentrenados incluidos en el catálogo son específicos de tarea. Nunca copies sus acciones al robot físico sin calibrar ejes, límites, cámara, latencia y una parada de emergencia. Empieza con el robot suspendido, velocidad limitada y una sola articulación.
 
+## Ubuntu
+
+La migración completa, incluidos scripts nativos para MuJoCo, entrenamiento e Isaac
+Sim, está en [docs/UBUNTU_MIGRATION.md](docs/UBUNTU_MIGRATION.md).
+
 ## Procedencia y licencia
 
 Los assets de `assets/xlerobot` proceden de [Vector-Wangel/MuJoCo-GS-Web](https://github.com/Vector-Wangel/MuJoCo-GS-Web), Apache-2.0. El diseño y software de XLeRobot proceden de [Vector-Wangel/XLeRobot](https://github.com/Vector-Wangel/XLeRobot), Apache-2.0. Consulta [docs/PROVENANCE.md](docs/PROVENANCE.md) antes de redistribuir modelos.

@@ -25,7 +25,12 @@ sites = {site.get("name") for site in root.findall(".//site")}
 required_sites = {"left_gripper_tip", "right_gripper_tip"}
 if not required_sites <= sites:
     raise SystemExit(f"Missing gripper sites: {sorted(required_sites - sites)}")
-for helper in (ROOT / "isaac" / "import.ps1", ROOT / "isaac" / "verify_usd.py"):
+for helper in (
+    ROOT / "isaac" / "import.ps1",
+    ROOT / "isaac" / "open.ps1",
+    ROOT / "isaac" / "verify_usd.py",
+    ROOT / "isaac" / "open_usd.py",
+):
     if not helper.is_file():
         raise SystemExit(f"Missing Isaac helper: {helper}")
 print(f"PASS: Isaac MJCF source | meshes={len(root.findall('./asset/mesh'))} cameras={sorted(required)} actuators=16")
