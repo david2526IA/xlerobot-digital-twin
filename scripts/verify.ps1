@@ -10,6 +10,7 @@ function Invoke-Checked {
 }
 Invoke-Checked @("scripts\validate_twin.py")
 Invoke-Checked @("scripts\validate_isaac_source.py")
+Invoke-Checked @("scripts\verify_official_assets.py")
 Invoke-Checked @("-m", "pytest", "-q")
 Invoke-Checked @("scripts\record_rollouts.py", "--episodes", "1", "--output", "outputs\verification_rollout")
 Write-Host "Verification complete."

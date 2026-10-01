@@ -1,0 +1,22 @@
+project: XLeRobot
+repository: https://github.com/Vector-Wangel/XLeRobot
+commit: 749abc837d5d771f26aeff961009c290e574b024
+license: Apache-2.0
+imported_at: 2026-10-01
+files:
+  - path: hardware/step/XLeRobot_040/XLeRobot040_dualwheelbase.step
+    upstream_path: hardware/step/XLeRobot_040/XLeRobot040_dualwheelbase.step
+    sha256: 7433421decc48c892c0efa03a9a2d167f4824d74788faf6f94fb19c189b35a8d
+    purpose: servo dual-wheel base assembly
+  - path: hardware/step/XLeRobot_040/XLeRobot040_armbase.step
+    upstream_path: hardware/step/XLeRobot_040/XLeRobot040_armbase.step
+    sha256: daa5a6bdc9b2bc3a9362622cd3afcedd229f81818e79de4928631207a78f0456
+    purpose: modular arm base and assembled upper structure reference
+  - path: hardware/step/XLeRobot_040/XLeRobot040_neck_refined.step
+    upstream_path: hardware/step/XLeRobot_040/XLeRobot040_neck_refined.step
+    sha256: 2247646869b2fc724f3656e625a97291b19b1c17be6add346784bd2edb165913
+    purpose: refined compact neck geometry
+  - path: hardware/XLeRobot_0_4_0_extra.stl
+    upstream_path: hardware/XLeRobot_0_4_0_extra.stl
+    sha256: 47ccb11752a70482016037e69d36376384bb2e06c059af88181ea990123b9953
+    purpose: official printable parts published for version 0.4.0
