@@ -1,0 +1,724 @@
+{
+  "schema_version": 1,
+  "units": "metre",
+  "mesh_frame": "source STEP axes, centred at the recorded source_origin_mm",
+  "assembly_warning": "The dual-wheel STEP is exploded. source_origin_mm is an export frame, not an assembled joint transform.",
+  "meshes": [
+    {
+      "name": "base_chassis",
+      "file": "assets/xlerobot/v04/meshes/base_chassis.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_dualwheelbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature",
+          "label": "Circular Pattern 01"
+        },
+        {
+          "name": "Part__Feature001",
+          "label": "Circular Pattern 001"
+        },
+        {
+          "name": "Part__Feature006",
+          "label": "COMPOUND002"
+        },
+        {
+          "name": "Part__Feature007",
+          "label": "COMPOUND003"
+        }
+      ],
+      "role": "static",
+      "notes": "Rigid central support; drive components deliberately excluded.",
+      "source_origin_mm": [
+        -358.0,
+        103.183989,
+        837.1525
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -455.0,
+          62.742977,
+          785.0
+        ],
+        "max": [
+          -261.0,
+          143.625,
+          889.305
+        ]
+      },
+      "local_size_m": [
+        0.194,
+        0.080882023,
+        0.104305
+      ],
+      "cad_size_m": [
+        0.194,
+        0.080882023,
+        0.104305
+      ],
+      "cad_volume_mm3": 286000.75,
+      "triangle_count": 34824,
+      "sha256": "804ef7da93049cc989c7313918e866ef3c47b63900d5987eb974589809f98f4a"
+    },
+    {
+      "name": "drive_side_a_mount",
+      "file": "assets/xlerobot/v04/meshes/drive_side_a_mount.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_dualwheelbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature002",
+          "label": "omni_wheel_mount v5:3"
+        }
+      ],
+      "role": "drive_interface",
+      "notes": "Exploded CAD component; side assignment is deferred to assembly.",
+      "source_origin_mm": [
+        -490.750034,
+        122.65,
+        823.14
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -502.479323,
+          92.65,
+          793.14
+        ],
+        "max": [
+          -479.020745,
+          152.65,
+          853.14
+        ]
+      },
+      "local_size_m": [
+        0.023458579,
+        0.05999968,
+        0.059933259
+      ],
+      "cad_size_m": [
+        0.023458579,
+        0.06,
+        0.06
+      ],
+      "cad_volume_mm3": 24949.878,
+      "triangle_count": 17606,
+      "sha256": "14ef49a25d82632257d38374031c33d86b6f816c3e174fc67cf67e117aa2b102"
+    },
+    {
+      "name": "drive_side_b_mount",
+      "file": "assets/xlerobot/v04/meshes/drive_side_b_mount.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_dualwheelbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature003",
+          "label": "omni_wheel_mount v5:001"
+        }
+      ],
+      "role": "drive_interface",
+      "notes": "Exploded CAD component; side assignment is deferred to assembly.",
+      "source_origin_mm": [
+        -225.249966,
+        122.65,
+        823.14
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -236.979255,
+          92.65,
+          793.14
+        ],
+        "max": [
+          -213.520677,
+          152.65,
+          853.14
+        ]
+      },
+      "local_size_m": [
+        0.023458579,
+        0.05999968,
+        0.059933259
+      ],
+      "cad_size_m": [
+        0.023458579,
+        0.06,
+        0.06
+      ],
+      "cad_volume_mm3": 24949.879,
+      "triangle_count": 17606,
+      "sha256": "1366582249c3bad552e445d4cda3a20e413bb969291b732427c7bb0f09f6d0a2"
+    },
+    {
+      "name": "drive_side_a_rotor",
+      "file": "assets/xlerobot/v04/meshes/drive_side_a_rotor.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_dualwheelbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature004",
+          "label": "COMPOUND"
+        }
+      ],
+      "role": "moving_wheel",
+      "notes": "Kept separate from chassis and mount so it can rotate physically.",
+      "source_origin_mm": [
+        -533.650896,
+        122.65,
+        823.14
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -541.150896,
+          92.65,
+          793.14
+        ],
+        "max": [
+          -526.150896,
+          152.65,
+          853.14
+        ]
+      },
+      "local_size_m": [
+        0.015,
+        0.05999968,
+        0.059924316
+      ],
+      "cad_size_m": [
+        0.015,
+        0.06,
+        0.06
+      ],
+      "cad_volume_mm3": 26806.744,
+      "triangle_count": 7616,
+      "sha256": "ef1060a2d34f6ffa5cb017cb3a357574ad50eb9b368707fe3d2be9318268cc34"
+    },
+    {
+      "name": "drive_side_b_rotor",
+      "file": "assets/xlerobot/v04/meshes/drive_side_b_rotor.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_dualwheelbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature005",
+          "label": "COMPOUND001"
+        }
+      ],
+      "role": "moving_wheel",
+      "notes": "Kept separate from chassis and mount so it can rotate physically.",
+      "source_origin_mm": [
+        -182.349104,
+        122.65,
+        823.14
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -189.849104,
+          92.65,
+          793.14
+        ],
+        "max": [
+          -174.849104,
+          152.65,
+          853.14
+        ]
+      },
+      "local_size_m": [
+        0.015,
+        0.05999968,
+        0.059924316
+      ],
+      "cad_size_m": [
+        0.015,
+        0.06,
+        0.06
+      ],
+      "cad_volume_mm3": 26807.966,
+      "triangle_count": 7616,
+      "sha256": "2c25ed76f7c94586bbd7763a3e98208df9e2b347ef5e6a1c687ae2c0c0331fa6"
+    },
+    {
+      "name": "soft_gripper_body",
+      "file": "assets/xlerobot/v04/meshes/soft_gripper_body.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature",
+          "label": "035hand.step"
+        }
+      ],
+      "role": "optional_gripper",
+      "notes": "",
+      "source_origin_mm": [
+        -259.160457,
+        137.205524,
+        893.531141
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -283.328137,
+          111.194285,
+          858.664119
+        ],
+        "max": [
+          -234.992778,
+          163.216763,
+          928.398163
+        ]
+      },
+      "local_size_m": [
+        0.048324868,
+        0.05200003,
+        0.065521827
+      ],
+      "cad_size_m": [
+        0.048335359,
+        0.052022478,
+        0.069734044
+      ],
+      "cad_volume_mm3": 44529.843,
+      "triangle_count": 26620,
+      "sha256": "692f721bf59a037f09aa690ca64e4722c27ff0da65a0522f56bca0a63094e158"
+    },
+    {
+      "name": "soft_gripper_servo_mount",
+      "file": "assets/xlerobot/v04/meshes/soft_gripper_servo_mount.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature001",
+          "label": "035hand.step001"
+        }
+      ],
+      "role": "optional_gripper",
+      "notes": "",
+      "source_origin_mm": [
+        -268.197699,
+        134.394446,
+        917.244668
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -286.591447,
+          109.781943,
+          905.999129
+        ],
+        "max": [
+          -249.803951,
+          159.00695,
+          928.490207
+        ]
+      },
+      "local_size_m": [
+        0.036786431,
+        0.048173753,
+        0.02130851
+      ],
+      "cad_size_m": [
+        0.036787496,
+        0.049225007,
+        0.022491078
+      ],
+      "cad_volume_mm3": 8693.463,
+      "triangle_count": 13854,
+      "sha256": "31b19724dbd0f8713bc53963ba43140fa4cb25538ce1e710e41c14a9257e2b68"
+    },
+    {
+      "name": "soft_gripper_finger_a",
+      "file": "assets/xlerobot/v04/meshes/soft_gripper_finger_a.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature002",
+          "label": "soft_gripper_finger.step"
+        }
+      ],
+      "role": "optional_gripper_moving",
+      "notes": "",
+      "source_origin_mm": [
+        -307.347987,
+        134.300038,
+        877.133656
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -340.13608,
+          122.123327,
+          862.506208
+        ],
+        "max": [
+          -274.559893,
+          146.476749,
+          891.761103
+        ]
+      },
+      "local_size_m": [
+        0.065288685,
+        0.02408739,
+        0.028847449
+      ],
+      "cad_size_m": [
+        0.065576187,
+        0.024353422,
+        0.029254895
+      ],
+      "cad_volume_mm3": 10213.912,
+      "triangle_count": 16676,
+      "sha256": "137f5d62b537794afa71d9795c250be3915794cb6fc8dae224a7936f63e045eb"
+    },
+    {
+      "name": "soft_gripper_finger_b",
+      "file": "assets/xlerobot/v04/meshes/soft_gripper_finger_b.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature003",
+          "label": "soft_gripper_finger.step001"
+        }
+      ],
+      "role": "optional_gripper_moving",
+      "notes": "",
+      "source_origin_mm": [
+        -311.299304,
+        133.61454,
+        915.22719
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -344.181214,
+          121.380383,
+          901.041693
+        ],
+        "max": [
+          -278.417394,
+          145.848697,
+          929.412687
+        ]
+      },
+      "local_size_m": [
+        0.065440629,
+        0.02426361,
+        0.028006469
+      ],
+      "cad_size_m": [
+        0.06576382,
+        0.024468315,
+        0.028370994
+      ],
+      "cad_volume_mm3": 10213.912,
+      "triangle_count": 17008,
+      "sha256": "345a9c3a2731a8663a600e50e4e576997f38baefd795f65bde5a79c167502c27"
+    },
+    {
+      "name": "head_yaw_housing",
+      "file": "assets/xlerobot/v04/meshes/head_yaw_housing.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature004",
+          "label": "Gimbal_Yaw.step"
+        }
+      ],
+      "role": "head_pan",
+      "notes": "",
+      "source_origin_mm": [
+        -101.307312,
+        4.795467,
+        1115.99418
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -128.326348,
+          -19.209635,
+          1096.273712
+        ],
+        "max": [
+          -74.288276,
+          28.800569,
+          1135.714649
+        ]
+      },
+      "local_size_m": [
+        0.054024123,
+        0.048,
+        0.039435714
+      ],
+      "cad_size_m": [
+        0.054038072,
+        0.048010203,
+        0.039440936
+      ],
+      "cad_volume_mm3": 25252.557,
+      "triangle_count": 22051,
+      "sha256": "e778847f9599e76f151575ac99674f6855f1cb1d5b6227bcfb96e69888efee1f"
+    },
+    {
+      "name": "neck_column_reference",
+      "file": "assets/xlerobot/v04/meshes/neck_column_reference.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature005",
+          "label": "XLeRobot 0-2-9-3d.step"
+        }
+      ],
+      "role": "superseded_reference",
+      "notes": "Preserved for comparison; neck_refined is the selected v0.4 column.",
+      "source_origin_mm": [
+        -98.647512,
+        4.74254,
+        922.546291
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -141.267194,
+          -44.878735,
+          801.027491
+        ],
+        "max": [
+          -56.027829,
+          54.363815,
+          1044.065092
+        ]
+      },
+      "local_size_m": [
+        0.085239,
+        0.09924255,
+        0.242525254
+      ],
+      "cad_size_m": [
+        0.085239364,
+        0.09924255,
+        0.243037601
+      ],
+      "cad_volume_mm3": 165635.562,
+      "triangle_count": 32330,
+      "sha256": "f10fb0211c550cc4c79b0e8afce9cc3baf4aac217581458c5200c29d543802ce"
+    },
+    {
+      "name": "head_gimbal_base",
+      "file": "assets/xlerobot/v04/meshes/head_gimbal_base.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature006",
+          "label": "Gimbal_Base.step"
+        }
+      ],
+      "role": "head_pan",
+      "notes": "",
+      "source_origin_mm": [
+        -112.743645,
+        4.9,
+        1073.549728
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -146.417066,
+          -27.4,
+          1043.699728
+        ],
+        "max": [
+          -79.070223,
+          37.2,
+          1103.399728
+        ]
+      },
+      "local_size_m": [
+        0.062000056,
+        0.0646,
+        0.0597
+      ],
+      "cad_size_m": [
+        0.067346843,
+        0.0646,
+        0.0597
+      ],
+      "cad_volume_mm3": 38912.588,
+      "triangle_count": 76318,
+      "sha256": "06eb5584865a1ae4d6fc0d41791231814fe8eeac84090cd494f78c110465acc4"
+    },
+    {
+      "name": "head_pitch_holder",
+      "file": "assets/xlerobot/v04/meshes/head_pitch_holder.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature007",
+          "label": "Folder 136"
+        }
+      ],
+      "role": "head_tilt",
+      "notes": "",
+      "source_origin_mm": [
+        -110.159844,
+        4.175209,
+        1140.745163
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -122.249506,
+          -27.524791,
+          1108.535332
+        ],
+        "max": [
+          -98.070182,
+          35.875209,
+          1172.954995
+        ]
+      },
+      "local_size_m": [
+        0.024178867,
+        0.0634,
+        0.064419663
+      ],
+      "cad_size_m": [
+        0.024179323,
+        0.0634,
+        0.064419663
+      ],
+      "cad_volume_mm3": 26371.217,
+      "triangle_count": 13608,
+      "sha256": "39143a54122d8ea9fc039dc265c3f3a239433a1fc33ee443498e7a9ed94035e7"
+    },
+    {
+      "name": "camera_mount",
+      "file": "assets/xlerobot/v04/meshes/camera_mount.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature008",
+          "label": "Folder 137"
+        }
+      ],
+      "role": "head_tilt",
+      "notes": "",
+      "source_origin_mm": [
+        -162.810597,
+        -80.48329,
+        1181.018295
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -175.163845,
+          -112.288149,
+          1157.303207
+        ],
+        "max": [
+          -150.45735,
+          -48.678431,
+          1204.733383
+        ]
+      },
+      "local_size_m": [
+        0.024705353,
+        0.06360969,
+        0.047293188
+      ],
+      "cad_size_m": [
+        0.024706495,
+        0.063609718,
+        0.047430176
+      ],
+      "cad_volume_mm3": 28511.762,
+      "triangle_count": 16552,
+      "sha256": "5a682f98e7d106b0a99d13b9407675adc61649af9af448c2d6f04fe183a86f89"
+    },
+    {
+      "name": "upper_arm_mount",
+      "file": "assets/xlerobot/v04/meshes/upper_arm_mount.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_armbase.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature009",
+          "label": "035armbase.step"
+        },
+        {
+          "name": "Part__Feature010",
+          "label": "035armbase.step001"
+        },
+        {
+          "name": "Part__Feature011",
+          "label": "035armbase.step002"
+        },
+        {
+          "name": "Part__Feature012",
+          "label": "035armbase.step003"
+        },
+        {
+          "name": "Part__Feature013",
+          "label": "XLeRobot 0-2-9bas.step"
+        }
+      ],
+      "role": "static",
+      "notes": "Rigid modular upper base for the two SO-101 arms and centre support.",
+      "source_origin_mm": [
+        -114.35875,
+        4.800003,
+        733.520624
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -189.60875,
+          -188.349997,
+          666.041247
+        ],
+        "max": [
+          -39.10875,
+          197.950003,
+          801.0
+        ]
+      },
+      "local_size_m": [
+        0.1505,
+        0.3863,
+        0.134958753
+      ],
+      "cad_size_m": [
+        0.1505,
+        0.3863,
+        0.134958753
+      ],
+      "cad_volume_mm3": 1006331.075,
+      "triangle_count": 48524,
+      "sha256": "aed50ba93db75078fa14fb400c52e5685ce233029d53acd741f204b184411cb4"
+    },
+    {
+      "name": "neck_refined",
+      "file": "assets/xlerobot/v04/meshes/neck_refined.stl",
+      "source": "third_party/xlerobot_official/hardware/step/XLeRobot_040/XLeRobot040_neck_refined.step",
+      "source_objects": [
+        {
+          "name": "Part__Feature",
+          "label": "XLeRobot040_neck_with_roundcorner"
+        }
+      ],
+      "role": "static",
+      "notes": "Selected refined v0.4 neck column.",
+      "source_origin_mm": [
+        -199.273712,
+        156.09834,
+        -277.625003
+      ],
+      "source_bounds_mm": {
+        "min": [
+          -240.845552,
+          106.216983,
+          -399.785405
+        ],
+        "max": [
+          -157.701871,
+          205.979697,
+          -155.4646
+        ]
+      },
+      "local_size_m": [
+        0.083143675,
+        0.099762714,
+        0.243796407
+      ],
+      "cad_size_m": [
+        0.083143681,
+        0.099762714,
+        0.244320805
+      ],
+      "cad_volume_mm3": 165115.347,
+      "triangle_count": 166338,
+      "sha256": "465b77756464a9a43500527ad00a3b6e919cca805a8ccbc95dceca7d74450507"
+    }
+  ]
+}

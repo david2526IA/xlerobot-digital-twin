@@ -1,0 +1,60 @@
+convention:
+  standard: REP-103
+  axes: {x: forward, y: left, z: up}
+  angles: radians
+  lengths: metres
+
+frames:
+  base_link:
+    parent: world
+    type: floating
+    definition: midpoint between the assembled left and right drive-wheel axes
+  left_wheel_link:
+    parent: base_link
+    type: continuous
+    axis: [0.0, 1.0, 0.0]
+    origin_m: {x: pending_assembly, y: 0.125, z: pending_assembly}
+    evidence: official wheel track 0.25 m; longitudinal and vertical offsets not published
+  right_wheel_link:
+    parent: base_link
+    type: continuous
+    axis: [0.0, 1.0, 0.0]
+    origin_m: {x: pending_assembly, y: -0.125, z: pending_assembly}
+    evidence: official wheel track 0.25 m; longitudinal and vertical offsets not published
+  upper_mount_link:
+    parent: base_link
+    type: fixed
+    origin_m: pending_assembly
+  left_arm_base_link:
+    parent: upper_mount_link
+    type: fixed
+    origin_m: pending_assembly
+  right_arm_base_link:
+    parent: upper_mount_link
+    type: fixed
+    origin_m: pending_assembly
+  neck_base_link:
+    parent: upper_mount_link
+    type: fixed
+    origin_m: pending_assembly
+  head_pan_link:
+    parent: neck_base_link
+    type: revolute
+    axis: [0.0, 0.0, 1.0]
+    origin_m: pending_assembly
+  head_tilt_link:
+    parent: head_pan_link
+    type: revolute
+    axis: [0.0, 1.0, 0.0]
+    origin_m: pending_assembly
+  head_camera_optical_frame:
+    parent: head_tilt_link
+    type: fixed
+    optical_axes: {x: right, y: down, z: forward}
+    origin_m: pending_camera_calibration
+
+cad_export_frames:
+  rule: each derived mesh is centred on its own source STEP bounding box
+  purpose: preserve geometry without treating exploded-view offsets as assembly transforms
+  transform_to_link: pending_assembly
+  drive_side_assignment: pending_left_right_verification

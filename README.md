@@ -43,6 +43,8 @@ Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y
 - `docs/ROADMAP_V04.md`: auditoría, fuentes y etapas con criterios de aceptación.
 - `docs/BUILD_LOG_V04.md`: registro reproducible de cada punto ejecutado.
 - `third_party/xlerobot_official/`: snapshot inmutable de los CAD v0.4 y su licencia.
+- `assets/xlerobot/v04/`: 16 mallas derivadas en metros, separadas por función mecánica.
+- `twin/v04_frames.yaml`: convención y contrato de frames para el ensamblaje v0.4.
 - `models/models.yaml`: catálogo con compatibilidad y limitaciones de cada checkpoint.
 - `twin/manifest.yaml`: contrato de embodiment 0.4 y evidencia de cada parámetro.
 - `src/xlerobot_twin/`: entorno Gymnasium para la tarea inicial de alcance.
