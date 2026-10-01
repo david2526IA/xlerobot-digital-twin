@@ -4,7 +4,7 @@
 
 Gemelo digital abierto y reproducible para el XLeRobot 0.4 de base diferencial. El objetivo inmediato es simulación, teleoperación y aprendizaje en **MuJoCo**; Isaac Sim queda documentado como ruta de importación cuando se haya validado el URDF específico de 0.4.
 
-> Estado: el modelo MuJoCo y sus mallas se incluyen y se pueden ejecutar. El fabricante/proyecto upstream no ha publicado un URDF oficial de 0.4; por ello este repositorio no afirma que el URDF de 0.3 represente la base 0.4.
+> Estado auditado: la cinemática actual ya es diferencial de dos ruedas, pero las mallas visibles de cesta/ruedas aún proceden del diseño anterior. El proyecto upstream no ha publicado un URDF oficial de 0.4. No se considerará una representación visual v0.4 ni un gemelo físico exacto hasta reconstruir la descripción desde el CAD oficial y validarla. Consulta la [hoja de ruta v0.4](docs/ROADMAP_V04.md).
 
 ## Inicio rápido
 
@@ -40,6 +40,7 @@ Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y
 - `scripts/record_expert.py`: demostraciones de alcance mediante IK diferencial.
 - `scripts/download_model.py`: descarga explícita y reproducible de checkpoints.
 - `docs/`: calibración, VR, cámaras, Isaac Sim, modelos y sim-to-real.
+- `docs/ROADMAP_V04.md`: auditoría, fuentes y etapas con criterios de aceptación.
 - `models/models.yaml`: catálogo con compatibilidad y limitaciones de cada checkpoint.
 - `twin/manifest.yaml`: contrato de embodiment 0.4 y evidencia de cada parámetro.
 - `src/xlerobot_twin/`: entorno Gymnasium para la tarea inicial de alcance.
