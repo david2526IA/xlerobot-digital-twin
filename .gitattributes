@@ -1,0 +1,6 @@
+# CAD and mesh assets must remain byte-for-byte identical on every platform.
+*.step binary
+*.stl binary
+
+# Keep executable shell scripts portable on Ubuntu.
+*.sh text eol=lf
