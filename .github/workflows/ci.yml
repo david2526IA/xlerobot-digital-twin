@@ -19,6 +19,8 @@ jobs:
       - run: python scripts/validate_isaac_source.py
       - run: python scripts/verify_official_assets.py
       - run: python scripts/validate_v04_meshes.py
+      - run: python scripts/generate_v04_urdf.py
+      - run: python scripts/validate_v04_description.py
       - run: pytest -q
       - run: python scripts/record_rollouts.py --episodes 1 --output outputs/ci-rollout
       - run: python scripts/record_expert.py --episodes 1 --max-attempts 5 --output outputs/ci-expert

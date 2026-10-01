@@ -6,4 +6,5 @@ calibration/measurements.yaml
 datasets/raw/
 outputs/
 isaac/generated/
+isaac/generated_v04/
 src/*.egg-info/

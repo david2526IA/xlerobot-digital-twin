@@ -94,3 +94,49 @@ ambas evidencias hasta contrastarlas con el montaje y una medición física.
 Ensamblar las piezas en el árbol cinemático v0.4 y crear el URDF/Xacro. La vía
 se fijará a 0,25 m por evidencia oficial; los offsets restantes permanecerán
 provisionales hasta validación geométrica o física.
+
+## 2026-10-01 — Punto 3: ensamblaje canónico e integración
+
+### Descripción canónica
+
+Se añadió `scripts/generate_v04_urdf.py`, que genera de forma determinista
+`robot_description/xlerobot_v04.urdf`. El árbol contiene 22 links, 21 joints y
+16 articulaciones móviles: dos ruedas, doce articulaciones de brazos/pinzas y
+dos del cuello. Usa REP-103, conserva una vía de 0,25 m y separa dos valores que
+no deben confundirse:
+
+- radio físico de neumático: 0,0635 m (rueda comercial de 5 pulgadas);
+- radio efectivo del controlador oficial: 0,05 m.
+
+Los 60 mm observados en las piezas STEP corresponden a la interfaz/rotor y no
+se usan como diámetro exterior del neumático.
+
+### MuJoCo
+
+El MJCF incorpora el chasis, soportes, rotores, base superior, cuello refinado,
+gimbal y soporte de cámara del CAD 0.4. Las ruedas son cuerpos dinámicos
+independientes con juntas y actuadores. Se mantienen los 16 actuadores y las
+cámaras de cuello. Una prueba automática comprueba avance y giro por contacto,
+sin trasladar cinemáticamente la base.
+
+### Isaac Sim
+
+La importación parte ahora del mismo URDF canónico mediante el importador URDF
+oficial de Isaac Sim. Mantiene base flotante y joints fijos, y un postproceso
+añade las cámaras RGB y depth al frame óptico. El pipeline se ejecutó en este PC
+con Isaac Sim 6.0.1; el USD resultante fue validado con 16 joints revolute y las
+dos cámaras.
+
+### Qué continúa siendo provisional
+
+Los STEP oficiales se publicaron como vistas explotadas y no fijan todas las
+transformaciones ensambladas. Los offsets no publicados se reconstruyeron con
+la vía oficial, las dimensiones CAD y el modelo funcional existente. Siguen
+necesitando medición del robot real: masas e inercias, posición longitudinal
+exacta del eje, fricción y deformación de neumáticos, holguras, latencia y
+óptica/extrínsecas exactas de la cámara.
+
+### Siguiente punto
+
+Completar la teleoperación Xbox con dead-man, brazos, cuello y pinzas, usando la
+misma interfaz de 16 acciones en MuJoCo y, después, en Isaac Sim.

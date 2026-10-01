@@ -36,9 +36,9 @@ La auditoría inicial se hizo contra el commit oficial
 | Cinemática diferencial | Radio y vía coinciden con el controlador oficial | Utilizable como punto de partida |
 | Dos ruedas motrices | Existen joints y actuadores físicos en MuJoCo | Funcional, pendiente de identificación dinámica |
 | Brazos, pinzas y cuello | Articulados, con límites y actuadores | Funcionales, límites pendientes de contraste físico |
-| Aspecto visual | Conserva mallas de cesta/ruedas del modelo anterior | **No representa todavía el diseño exterior 0.4** |
-| URDF v0.4 | No existe upstream ni aquí como descripción canónica | Hay que construirlo |
-| Isaac Sim | USD importable con 16 joints | La cámara no se recrea aún en USD y falta validar la base en PhysX |
+| Aspecto visual | CAD oficial 0.4 integrado en base, soporte superior, cuello y cabeza | Falta contrastar offsets contra el montaje físico |
+| URDF v0.4 | Reconstrucción canónica reproducible: 22 links, 21 joints y 16 móviles | Validado estructuralmente; no es un URDF oficial upstream |
+| Isaac Sim | USD importado desde el URDF con 16 joints y cámaras RGB/depth | Importación validada; falta paridad dinámica del controlador |
 | Mando | Base, cuello y pinzas tienen control básico | Faltan brazos, dead zone, dead-man, perfiles y prueba física de mando |
 | RL/datasets | Gymnasium, PPO/CEM y exportación básica existen | Pipeline funcional, tarea y política todavía no validadas |
 | VR | Diseño documentado | No implementado ni probado con visor real |
@@ -62,6 +62,8 @@ Criterio: ningún número físico aparece sin valor, unidad, fuente y nivel de
 confianza.
 
 ### Etapa 1 — Descripción v0.4 canónica y aspecto correcto
+
+**Estado: implementación funcional completada; calibración geométrica física pendiente.**
 
 1. Abrir los tres STEP oficiales y exportar cada pieza rígida a STL/OBJ/USD sin
    perder escala.

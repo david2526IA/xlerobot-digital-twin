@@ -45,6 +45,19 @@
     <mesh name="tophead4" file="tophead4.stl" scale="0.001 0.001 0.001"/>
     <mesh name="tophead5" file="tophead5.stl" scale="0.001 0.001 0.001"/>
     <mesh name="tophead6" file="tophead6.stl" scale="0.001 0.001 0.001"/>
+
+    <!-- Official XLeRobot 0.4 CAD-derived meshes; vertices are already metres. -->
+    <mesh name="v04_base_chassis" file="../v04/meshes/base_chassis.stl"/>
+    <mesh name="v04_drive_mount_a" file="../v04/meshes/drive_side_a_mount.stl"/>
+    <mesh name="v04_drive_mount_b" file="../v04/meshes/drive_side_b_mount.stl"/>
+    <mesh name="v04_drive_rotor_a" file="../v04/meshes/drive_side_a_rotor.stl"/>
+    <mesh name="v04_drive_rotor_b" file="../v04/meshes/drive_side_b_rotor.stl"/>
+    <mesh name="v04_upper_arm_mount" file="../v04/meshes/upper_arm_mount.stl"/>
+    <mesh name="v04_neck_refined" file="../v04/meshes/neck_refined.stl"/>
+    <mesh name="v04_head_yaw_housing" file="../v04/meshes/head_yaw_housing.stl"/>
+    <mesh name="v04_head_gimbal_base" file="../v04/meshes/head_gimbal_base.stl"/>
+    <mesh name="v04_head_pitch_holder" file="../v04/meshes/head_pitch_holder.stl"/>
+    <mesh name="v04_camera_mount" file="../v04/meshes/camera_mount.stl"/>
   </asset>
 
   <default>
@@ -53,7 +66,8 @@
     <!-- Wheel defaults (similar to car) -->
     <default class="wheel">
       <joint damping="0.03" actuatorfrcrange="-2.0 2.0"/>
-      <geom type="cylinder" group="3" size="0.05 0.02" rgba="0.5 0.5 1 1" contype="1" conaffinity="1" condim="6" friction="1.5 0.02 0.003"/>
+      <!-- Hardware BOM: two 5-inch (127 mm) directional wheels. -->
+      <geom type="cylinder" group="3" size="0.0635 0.02" rgba="0.055 0.055 0.055 1" contype="1" conaffinity="1" condim="6" friction="1.5 0.02 0.003"/>
     </default>
     <default class="caster">
       <geom type="sphere" group="3" size="0.02" rgba="0.7 0.7 0.7 1" contype="1" conaffinity="1" condim="1" priority="1"/>
@@ -97,21 +111,25 @@
       
       <!-- Raskog visual meshes -->
       <geom type="mesh" mesh="raskogbody" pos="-0.01668 0.502 0.515" euler="1.5708 0 0" material="blue" class="visual"/>
-      <geom type="mesh" mesh="raskogwheel1" pos="-0.01668 0.502 0.515" euler="1.5708 0 0" material="grey" class="visual"/>
-      <geom type="mesh" mesh="raskogwheel2" pos="-0.01668 0.502 0.515" euler="1.5708 0 0" material="motor" class="visual"/>
+      <!-- v0.4 servo wheel cross-member and fixed motor interfaces. -->
+      <geom type="mesh" mesh="v04_base_chassis" pos="-0.15 0 -0.3065" euler="0 0 1.5708" material="white" class="visual"/>
+      <geom type="mesh" mesh="v04_drive_mount_a" pos="-0.15 0.095 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
+      <geom type="mesh" mesh="v04_drive_mount_b" pos="-0.15 -0.095 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
       
       <!-- Drive wheels (active wheels, similar to car) -->
       <!-- Positioned at the bottom of chassis, with wheels touching the ground -->
       <!-- XLeRobot 0.4 controller config: 50 mm radius, 250 mm wheel track. -->
-      <body name="left_wheel" pos="-0.15 0.125 -0.32" zaxis="0 1 0">
+      <body name="left_wheel" pos="-0.15 0.125 -0.3065" zaxis="0 1 0">
         <joint name="left_wheel_joint"/>
         <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
-        <geom class="wheel"/>
+        <geom name="left_drive_tire" class="wheel"/>
+        <geom type="mesh" mesh="v04_drive_rotor_a" euler="0 -1.5708 0" material="grey" class="visual"/>
       </body>
-      <body name="right_wheel" pos="-0.15 -0.125 -0.32" zaxis="0 1 0">
+      <body name="right_wheel" pos="-0.15 -0.125 -0.3065" zaxis="0 1 0">
         <joint name="right_wheel_joint"/>
         <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
-        <geom class="wheel"/>
+        <geom name="right_drive_tire" class="wheel"/>
+        <geom type="mesh" mesh="v04_drive_rotor_b" euler="0 -1.5708 0" material="grey" class="visual"/>
       </body>
       
       <!-- Caster wheels (passive wheels, similar to car's front wheel) -->
@@ -293,23 +311,23 @@
       <body name="top_base_link" pos="0 0 0.35">
         <inertial pos="0 0 0" mass="0.2542" diaginertia="0.0045 0.005 0.0045"/>
         <!-- Visual meshes -->
-        <geom type="mesh" mesh="topbase1" pos="-0.44 -0.005 -0.6" euler="0 0 0" material="white" class="visual"/>
-        <geom type="mesh" mesh="topbase2" pos="-0.298 0.006 -0.715" euler="0 0 3.14" material="motor" class="visual"/>
+        <geom type="mesh" mesh="v04_upper_arm_mount" pos="-0.11436 0.0048 0.00352" material="white" class="visual"/>
+        <geom type="mesh" mesh="v04_neck_refined" pos="-0.09865 0.00474 0.19255" material="white" class="visual"/>
         
         <!-- Head -->
         <body name="head_pan_link" pos="-0.103 0 0.323">
           <inertial pos="0 0 0" mass="0.2556" diaginertia="0.0129 0.0095 0.0184"/>
           <joint name="head_pan_joint" type="hinge" axis="0 0 1" range="-3.2 3.2" class="sts3215"/>
           <!-- Visual meshes -->
-          <geom type="mesh" mesh="tophead1" pos="-0.335 -0.005 -0.923" material="white" class="visual"/>
-          <geom type="mesh" mesh="tophead4" pos="1.17 -0.009 0.262" euler="3.14 -1.57 3.14" material="motor" class="visual"/>
+          <geom type="mesh" mesh="v04_head_gimbal_base" pos="-0.00974 0.0049 0.02055" material="white" class="visual"/>
+          <geom type="mesh" mesh="v04_head_yaw_housing" pos="0.00169 0.0048 0.06299" material="motor" class="visual"/>
           
           <body name="head_tilt_link" pos="0.001 0.002 0.09815" euler="0 0 3.14159265">
             <inertial pos="0 0 0" mass="0.02087" diaginertia="0.0061 0.0014 0.0061"/>
             <joint name="head_tilt_joint" type="hinge" axis="0 1 0" range="-0.76 1.45" class="sts3215"/>
             <!-- Visual meshes -->
-            <geom type="mesh" mesh="tophead5" pos="0.16265 -0.006 -1.16815" material="white" class="visual"/>
-            <geom type="mesh" mesh="tophead6" pos="0.16265 -0.006 -1.16815" material="motor" class="visual"/>
+            <geom type="mesh" mesh="v04_head_pitch_holder" pos="-0.00816 0.00218 -0.0104" material="white" class="visual"/>
+            <geom type="mesh" mesh="v04_camera_mount" pos="0.025 0 0.03" euler="0 0 1.5708" material="motor" class="visual"/>
             
             <!-- Camera frames -->
             <body name="head_camera_link" pos="0.025 0 0.03">

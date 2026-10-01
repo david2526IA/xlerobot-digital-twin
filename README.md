@@ -2,9 +2,9 @@
 
 [![twin-ci](https://github.com/david2526IA/xlerobot-digital-twin/actions/workflows/ci.yml/badge.svg)](https://github.com/david2526IA/xlerobot-digital-twin/actions/workflows/ci.yml)
 
-Gemelo digital abierto y reproducible para el XLeRobot 0.4 de base diferencial. El objetivo inmediato es simulación, teleoperación y aprendizaje en **MuJoCo**; Isaac Sim queda documentado como ruta de importación cuando se haya validado el URDF específico de 0.4.
+Gemelo digital abierto y reproducible para el XLeRobot 0.4 de base diferencial. La descripción canónica URDF, MuJoCo e Isaac Sim comparten las mallas CAD v0.4, 16 joints y dos ruedas físicas independientes.
 
-> Estado auditado: la cinemática actual ya es diferencial de dos ruedas, pero las mallas visibles de cesta/ruedas aún proceden del diseño anterior. El proyecto upstream no ha publicado un URDF oficial de 0.4. No se considerará una representación visual v0.4 ni un gemelo físico exacto hasta reconstruir la descripción desde el CAD oficial y validarla. Consulta la [hoja de ruta v0.4](docs/ROADMAP_V04.md).
+> Estado auditado: el proyecto upstream no publica un URDF v0.4, por lo que este repositorio construye uno trazable desde sus CAD oficiales. La geometría v0.4 ya está integrada y validada en MuJoCo e Isaac; masas, fricción, offsets no publicados y cámara siguen necesitando medición física para considerarlo un gemelo exacto. Consulta la [hoja de ruta v0.4](docs/ROADMAP_V04.md).
 
 ## Inicio rápido
 
@@ -45,10 +45,11 @@ Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y
 - `third_party/xlerobot_official/`: snapshot inmutable de los CAD v0.4 y su licencia.
 - `assets/xlerobot/v04/`: 16 mallas derivadas en metros, separadas por función mecánica.
 - `twin/v04_frames.yaml`: convención y contrato de frames para el ensamblaje v0.4.
+- `robot_description/xlerobot_v04.urdf`: descripción canónica con 22 links y 16 joints móviles.
 - `models/models.yaml`: catálogo con compatibilidad y limitaciones de cada checkpoint.
 - `twin/manifest.yaml`: contrato de embodiment 0.4 y evidencia de cada parámetro.
 - `src/xlerobot_twin/`: entorno Gymnasium para la tarea inicial de alcance.
-- `isaac/`: guía de importación MJCF para Isaac Sim.
+- `isaac/`: importación URDF, cámaras y validación para Isaac Sim.
 
 ## Arquitectura
 

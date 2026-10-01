@@ -1,6 +1,6 @@
 param(
     [string]$IsaacRoot = "C:\isaacsim",
-    [string]$Usd = "isaac/generated/xlerobot/xlerobot.usda"
+    [string]$Usd = "isaac/generated/xlerobot_v04/xlerobot_v04.usda"
 )
 
 $ErrorActionPreference = "Stop"

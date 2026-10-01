@@ -1,0 +1,715 @@
+<?xml version="1.0" ?>
+<robot name="xlerobot_v04_servo_dualwheel">
+  <material name="white">
+    <color rgba="0.82 0.82 0.82 1"/>
+  </material>
+  <material name="motor">
+    <color rgba="0.08 0.08 0.08 1"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.08 0.18 0.55 1"/>
+  </material>
+  <material name="rubber">
+    <color rgba="0.03 0.03 0.03 1"/>
+  </material>
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="10.0"/>
+      <inertia ixx="0.7" ixy="0" ixz="0" iyy="0.67" iyz="0" izz="0.3"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.01668 0.502 0.515" rpy="1.5708 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/raskogbody.stl" scale="0.0009 0.001 0.0009"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.15 0 -0.3065" rpy="0 0 1.5708"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/base_chassis.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.15 0.095 -0.3065" rpy="0 0 1.5708"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/drive_side_a_mount.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.15 -0.095 -0.3065" rpy="0 0 1.5708"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/drive_side_b_mount.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.30" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3913 0.459 0.10"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.315 0.405 0.59"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.6"/>
+      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0008" iyz="0" izz="0.0015"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.0635" length="0.04"/>
+      </geometry>
+      <material name="rubber"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.0635" length="0.04"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/drive_side_a_rotor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+  </link>
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel_link"/>
+    <origin xyz="-0.15 0.125 -0.3065" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="2.0" velocity="6.0"/>
+    <dynamics damping="0.03" friction="0.052"/>
+  </joint>
+  <link name="right_wheel_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.6"/>
+      <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0008" iyz="0" izz="0.0015"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.0635" length="0.04"/>
+      </geometry>
+      <material name="rubber"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.0635" length="0.04"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/drive_side_b_rotor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+  </link>
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel_link"/>
+    <origin xyz="-0.15 -0.125 -0.3065" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="2.0" velocity="6.0"/>
+    <dynamics damping="0.03" friction="0.052"/>
+  </joint>
+  <link name="upper_mount_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.75"/>
+      <inertia ixx="0.02" ixy="0" ixz="0" iyy="0.02" iyz="0" izz="0.03"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.11436 0.0048 0.35352" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/upper_arm_mount.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="upper_mount_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="upper_mount_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <dynamics damping="0.03" friction="0.052"/>
+  </joint>
+  <link name="left_arm_base_link">
+    <inertial>
+      <origin xyz="0.013718 0 0.033484" rpy="0 0 0"/>
+      <mass value="0.147"/>
+      <inertia ixx="0.000115" ixy="0" ixz="0" iyy="0.000136" iyz="0" izz="0.00013"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Base.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Base_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.09 0.08 0.08"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_arm_mount_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_arm_base_link"/>
+    <origin xyz="-0.09 -0.11 0.395" rpy="0 0 0"/>
+    <dynamics damping="0.03" friction="0.052"/>
+  </joint>
+  <link name="left_arm_rotation_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.100006"/>
+      <inertia ixx="8.4e-05" ixy="0" ixz="0" iyy="8.1e-05" iyz="0" izz="2.4e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Rotation_Pitch.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Rotation_Pitch_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Rotation_L" type="revolute">
+    <parent link="left_arm_base_link"/>
+    <child link="left_arm_rotation_link"/>
+    <origin xyz="0 -0.0452 0.0165" rpy="1.5708 0 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-2.16" upper="2.16" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="left_arm_upper_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.103"/>
+      <inertia ixx="4.1e-05" ixy="0" ixz="0" iyy="0.000147" iyz="0" izz="0.000142"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Upper_Arm.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Upper_Arm_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Pitch_L" type="revolute">
+    <parent link="left_arm_rotation_link"/>
+    <child link="left_arm_upper_link"/>
+    <origin xyz="0 0.1025 0.0306" rpy="1.5708 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-0.22" upper="3.37" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="left_arm_lower_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.104"/>
+      <inertia ixx="2.9e-05" ixy="0" ixz="0" iyy="0.00016" iyz="0" izz="0.000145"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Lower_Arm.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Lower_Arm_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Elbow_L" type="revolute">
+    <parent link="left_arm_upper_link"/>
+    <child link="left_arm_lower_link"/>
+    <origin xyz="0 0.11257 0.028" rpy="-1.5708 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.22" upper="3.14" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="left_arm_wrist_pitch_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.079"/>
+      <inertia ixx="3.7e-05" ixy="0" ixz="0" iyy="2.5e-05" iyz="0" izz="2.1e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Wrist_Pitch_Roll.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Wrist_Pitch_Roll_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Wrist_Pitch_L" type="revolute">
+    <parent link="left_arm_lower_link"/>
+    <child link="left_arm_wrist_pitch_link"/>
+    <origin xyz="0 0.0052 0.1349" rpy="-1.5708 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.65806" upper="1.65806" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="left_arm_wrist_roll_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.087"/>
+      <inertia ixx="2.8e-05" ixy="0" ixz="0" iyy="4.3e-05" iyz="0" izz="3.5e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Fixed_Jaw.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Fixed_Jaw_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Wrist_Roll_L" type="revolute">
+    <parent link="left_arm_wrist_pitch_link"/>
+    <child link="left_arm_wrist_roll_link"/>
+    <origin xyz="0 -0.0601 0" rpy="0 1.5708 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-2.74385" upper="2.84121" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="left_arm_gripper_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.012"/>
+      <inertia ixx="6.6e-06" ixy="0" ixz="0" iyy="1.9e-06" iyz="0" izz="5.3e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Moving_Jaw.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Jaw_L" type="revolute">
+    <parent link="left_arm_wrist_roll_link"/>
+    <child link="left_arm_gripper_link"/>
+    <origin xyz="-0.0202 -0.0244 0" rpy="3.1416 0 3.33"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.37453" upper="1.74533" effort="10" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="right_arm_base_link">
+    <inertial>
+      <origin xyz="0.013718 0 0.033484" rpy="0 0 0"/>
+      <mass value="0.147"/>
+      <inertia ixx="0.000115" ixy="0" ixz="0" iyy="0.000136" iyz="0" izz="0.00013"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Base.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Base_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.09 0.08 0.08"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_arm_mount_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_arm_base_link"/>
+    <origin xyz="-0.09 0.11 0.395" rpy="0 0 3.14159265"/>
+    <dynamics damping="0.03" friction="0.052"/>
+  </joint>
+  <link name="right_arm_rotation_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.100006"/>
+      <inertia ixx="8.4e-05" ixy="0" ixz="0" iyy="8.1e-05" iyz="0" izz="2.4e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Rotation_Pitch.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Rotation_Pitch_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Rotation_R" type="revolute">
+    <parent link="right_arm_base_link"/>
+    <child link="right_arm_rotation_link"/>
+    <origin xyz="0 -0.0452 0.0165" rpy="1.5708 0 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-2.16" upper="2.16" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="right_arm_upper_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.103"/>
+      <inertia ixx="4.1e-05" ixy="0" ixz="0" iyy="0.000147" iyz="0" izz="0.000142"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Upper_Arm.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Upper_Arm_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Pitch_R" type="revolute">
+    <parent link="right_arm_rotation_link"/>
+    <child link="right_arm_upper_link"/>
+    <origin xyz="0 0.1025 0.0306" rpy="1.5708 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-0.22" upper="3.37" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="right_arm_lower_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.104"/>
+      <inertia ixx="2.9e-05" ixy="0" ixz="0" iyy="0.00016" iyz="0" izz="0.000145"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Lower_Arm.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Lower_Arm_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Elbow_R" type="revolute">
+    <parent link="right_arm_upper_link"/>
+    <child link="right_arm_lower_link"/>
+    <origin xyz="0 0.11257 0.028" rpy="-1.5708 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.22" upper="3.14" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="right_arm_wrist_pitch_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.079"/>
+      <inertia ixx="3.7e-05" ixy="0" ixz="0" iyy="2.5e-05" iyz="0" izz="2.1e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Wrist_Pitch_Roll.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Wrist_Pitch_Roll_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Wrist_Pitch_R" type="revolute">
+    <parent link="right_arm_lower_link"/>
+    <child link="right_arm_wrist_pitch_link"/>
+    <origin xyz="0 0.0052 0.1349" rpy="-1.5708 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.65806" upper="1.65806" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="right_arm_wrist_roll_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.087"/>
+      <inertia ixx="2.8e-05" ixy="0" ixz="0" iyy="4.3e-05" iyz="0" izz="3.5e-05"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Fixed_Jaw.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Fixed_Jaw_Motor.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Wrist_Roll_R" type="revolute">
+    <parent link="right_arm_wrist_pitch_link"/>
+    <child link="right_arm_wrist_roll_link"/>
+    <origin xyz="0 -0.0601 0" rpy="0 1.5708 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-2.74385" upper="2.84121" effort="3.35" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="right_arm_gripper_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.012"/>
+      <inertia ixx="6.6e-06" ixy="0" ixz="0" iyy="1.9e-06" iyz="0" izz="5.3e-06"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/assets/Moving_Jaw.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.07 0.07 0.10"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Jaw_R" type="revolute">
+    <parent link="right_arm_wrist_roll_link"/>
+    <child link="right_arm_gripper_link"/>
+    <origin xyz="-0.0202 -0.0244 0" rpy="3.1416 0 3.33"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.37453" upper="1.74533" effort="10" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="neck_base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.35"/>
+      <inertia ixx="0.006" ixy="0" ixz="0" iyy="0.006" iyz="0" izz="0.002"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.12152" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/neck_refined.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+  <joint name="neck_mount_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="neck_base_link"/>
+    <origin xyz="-0.09865 0.00474 0.42103" rpy="0 0 0"/>
+    <dynamics damping="0.03" friction="0.052"/>
+  </joint>
+  <link name="head_pan_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.2556"/>
+      <inertia ixx="0.0129" ixy="0" ixz="0" iyy="0.0095" iyz="0" izz="0.0184"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.02985" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/head_gimbal_base.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0.01144 -0.0001 0.07229" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/head_yaw_housing.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+  </link>
+  <joint name="head_pan_joint" type="revolute">
+    <parent link="neck_base_link"/>
+    <child link="head_pan_link"/>
+    <origin xyz="-0.01409 0.00016 0.24267" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.2" upper="3.2" effort="0.32" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="head_tilt_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0061" ixy="0" ixz="0" iyy="0.0014" iyz="0" izz="0.0061"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/head_pitch_holder.stl"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <visual>
+      <origin xyz="0.025 0 0.03" rpy="0 0 1.5708"/>
+      <geometry>
+        <mesh filename="../assets/xlerobot/v04/meshes/camera_mount.stl"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+  </link>
+  <joint name="head_tilt_joint" type="revolute">
+    <parent link="head_pan_link"/>
+    <child link="head_tilt_link"/>
+    <origin xyz="0.00258 -0.00072 0.09705" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.76" upper="1.45" effort="0.68" velocity="4.0"/>
+    <dynamics damping="0.6" friction="0.052"/>
+  </joint>
+  <link name="head_camera_optical_frame">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.02"/>
+      <inertia ixx="1e-05" ixy="0" ixz="0" iyy="1e-05" iyz="0" izz="1e-05"/>
+    </inertial>
+  </link>
+  <joint name="head_camera_joint" type="fixed">
+    <parent link="head_tilt_link"/>
+    <child link="head_camera_optical_frame"/>
+    <origin xyz="0.025 0 0.03" rpy="-1.5708 0 -1.5708"/>
+    <dynamics damping="0.03" friction="0.052"/>
+  </joint>
+</robot>

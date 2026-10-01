@@ -29,4 +29,12 @@ track = abs(left[1] - right[1])
 expected = manifest["base"]["wheel_track_m"]
 if abs(track - expected) > 1e-9:
     raise SystemExit(f"Wheel track {track} != manifest {expected}")
-print(f"PASS: {manifest['robot']['name']} {manifest['robot']['version']} | nu={model.nu} | wheel track={track:.3f} m")
+expected_radius = manifest["base"]["wheel_physical_radius_m"]
+for geom_name in ("left_drive_tire", "right_drive_tire"):
+    radius = model.geom(geom_name).size[0]
+    if abs(radius - expected_radius) > 1e-9:
+        raise SystemExit(f"{geom_name} radius {radius} != manifest {expected_radius}")
+for mesh_name in ("v04_base_chassis", "v04_upper_arm_mount", "v04_neck_refined"):
+    if mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_MESH, mesh_name) < 0:
+        raise SystemExit(f"Missing integrated v0.4 mesh: {mesh_name}")
+print(f"PASS: {manifest['robot']['name']} {manifest['robot']['version']} | nu={model.nu} | wheel track={track:.3f} m | tire radius={expected_radius:.4f} m")
