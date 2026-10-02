@@ -6,9 +6,9 @@ base:
   type: differential_drive
   wheel_physical_radius_m: 0.0635
   wheel_control_radius_m: 0.05
-  wheel_physical_track_m: 0.46
+  wheel_physical_track_m: 0.50
   wheel_control_track_m: 0.25
-  drive_mount_lateral_offset_m: 0.205
+  drive_mount_lateral_offset_m: 0.225
   drive_motors: [base_left_wheel, base_right_wheel]
   supporting_wheels: caster/walker wheels
 arms:
@@ -20,7 +20,7 @@ head:
   dof: [pan, tilt]
   camera: neck_rgb
 evidence:
-  wheel_geometry: official hardware specifies 5-inch (127 mm) wheels; 0.46 m physical track is photo-derived from the user's assembled v0.4 against the 0.459 m cart width and remains provisional; xlerobot_2wheels software uses 0.05 m effective radius and 0.25 m effective wheelbase
+  wheel_geometry: official hardware specifies 5-inch (127 mm) wheels; 0.50 m provisional physical track places each 50 mm wide tire immediately outside the 0.459 m cart envelope as shown by the user's assembled v0.4; xlerobot_2wheels software uses 0.05 m effective radius and 0.25 m effective wheelbase
   arm_joint_limits_and_sts3215: upstream MuJoCo-GS-Web model
   base_and_head_geometry: upstream MuJoCo-GS-Web meshes plus XLeRobot 0.4 STEP CAD
   camera_intrinsics: pending physical calibration

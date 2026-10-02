@@ -112,24 +112,26 @@ def build():
         "white": "0.82 0.82 0.82 1",
         "motor": "0.08 0.08 0.08 1",
         "blue": "0.08 0.18 0.55 1",
-        "rubber": "0.03 0.03 0.03 1",
+        "rubber": "0.24 0.25 0.27 1",
+        "hub": "0.62 0.63 0.65 1",
     }.items():
         material(robot, name, rgba)
 
     base = ET.SubElement(robot, "link", name="base_link")
     inertial(base, 10.0, "0 0 0", (0.70, 0.67, 0.30))
     mesh_visual(base, "../assets/xlerobot/assets/raskogbody.stl", "-0.01668 0.502 0.515", "1.5708 0 0", "0.0009 0.001 0.0009", "blue")
-    mesh_visual(base, "../assets/xlerobot/v04/meshes/base_chassis.stl", "-0.15 0 -0.3065", "0 0 1.5708")
-    mesh_visual(base, "../assets/xlerobot/v04/meshes/drive_side_a_mount.stl", "-0.15 0.205 -0.3065", "0 0 1.5708", mat="motor")
-    mesh_visual(base, "../assets/xlerobot/v04/meshes/drive_side_b_mount.stl", "-0.15 -0.205 -0.3065", "0 0 1.5708", mat="motor")
+    # Do not render the centred exploded-view grouping as an assembled cover.
+    mesh_visual(base, "../assets/xlerobot/v04/meshes/drive_side_a_mount.stl", "-0.15 0.225 -0.3065", "0 0 1.5708", mat="motor")
+    mesh_visual(base, "../assets/xlerobot/v04/meshes/drive_side_b_mount.stl", "-0.15 -0.225 -0.3065", "0 0 1.5708", mat="motor")
     primitive(base, "box", {"size": "0.3913 0.459 0.10"}, "0 0 -0.30", collision=True)
     primitive(base, "box", {"size": "0.315 0.405 0.59"}, "0 0 0.015", collision=True)
 
-    for side, y, rotor in (("left", 0.23, "a"), ("right", -0.23, "b")):
+    for side, y, rotor in (("left", 0.25, "a"), ("right", -0.25, "b")):
         link = ET.SubElement(robot, "link", name=f"{side}_wheel_link")
         inertial(link, 0.6, inertia=(0.0015, 0.0008, 0.0015))
-        primitive(link, "cylinder", {"radius": "0.0635", "length": "0.04"}, rpy="1.5708 0 0", mat="rubber")
-        primitive(link, "cylinder", {"radius": "0.0635", "length": "0.04"}, rpy="1.5708 0 0", collision=True)
+        primitive(link, "cylinder", {"radius": "0.0635", "length": "0.05"}, rpy="1.5708 0 0", mat="rubber")
+        primitive(link, "cylinder", {"radius": "0.031", "length": "0.052"}, rpy="1.5708 0 0", mat="hub")
+        primitive(link, "cylinder", {"radius": "0.0635", "length": "0.05"}, rpy="1.5708 0 0", collision=True)
         mesh_visual(link, f"../assets/xlerobot/v04/meshes/drive_side_{rotor}_rotor.stl", rpy="0 0 1.5708", mat="motor")
         joint(robot, f"{side}_wheel_joint", "continuous", "base_link", link.attrib["name"], f"-0.15 {y} -0.3065", axis="0 1 0", limits={"effort": 2.0, "velocity": 6.0})
 

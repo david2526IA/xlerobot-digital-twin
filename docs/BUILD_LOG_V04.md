@@ -107,7 +107,7 @@ del controlador para no confundirlos:
 
 - radio físico de neumático: 0,0635 m (rueda comercial de 5 pulgadas);
 - radio efectivo del controlador oficial: 0,05 m.
-- vía física provisional reconstruida de fotografías: 0,460 m;
+- vía física provisional reconstruida de fotografías: 0,500 m;
 - `wheelbase` efectivo del controlador oficial: 0,250 m.
 
 Los 60 mm observados en las piezas STEP corresponden a la interfaz/rotor y no
@@ -161,3 +161,14 @@ muerta, curva suave, dead-man, E-stop enclavado y vuelta a home. Sus mapeos y
 mecanismos de seguridad están cubiertos por pruebas automáticas; el adaptador de
 Isaac abrió el USD regenerado, añadió suelo y validó los 16 joints durante una
 prueba headless de diez pasos. Falta la prueba física con el mando del usuario.
+
+## 2026-10-02 — Segunda corrección visual del conjunto motriz
+
+La primera corrección seguía mostrando el agrupado central extraído de la vista
+explotada como si fuese una carcasa ensamblada. Además, el neumático oscuro se
+confundía con el fondo y sólo destacaba el rotor. Se retiró ese agrupado de la
+vista ensamblada, se desplazaron las dos carcasas a los laterales y cada rueda
+se modeló explícitamente con neumático de 127 mm, 50 mm de ancho y cubo visible.
+La vía geométrica provisional pasa a 0,500 m para situar los neumáticos fuera de
+la envolvente de 0,459 m del carro. Este cambio debe confirmarse midiendo la
+distancia real entre centros antes de identificar la dinámica.

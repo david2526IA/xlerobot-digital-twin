@@ -60,7 +60,8 @@ def main() -> None:
             errors.append(f"{side} wheel radius={radius} does not match manifest")
 
     expected_v04_meshes = {
-        "base_chassis.stl", "upper_arm_mount.stl", "neck_refined.stl",
+        "drive_side_a_mount.stl", "drive_side_b_mount.stl",
+        "upper_arm_mount.stl", "neck_refined.stl",
         "drive_side_a_rotor.stl", "drive_side_b_rotor.stl",
     }
     attached_v04 = set()
@@ -78,7 +79,7 @@ def main() -> None:
     if missing := required - mjcf_joints:
         errors.append(f"MuJoCo parity missing joints: {sorted(missing)}")
     mjcf_meshes = {mesh.get("name") for mesh in mjcf.findall("./asset/mesh")}
-    for name in ("v04_base_chassis", "v04_upper_arm_mount", "v04_neck_refined"):
+    for name in ("v04_drive_mount_a", "v04_drive_mount_b", "v04_upper_arm_mount", "v04_neck_refined"):
         if name not in mjcf_meshes:
             errors.append(f"MuJoCo missing integrated mesh {name}")
 

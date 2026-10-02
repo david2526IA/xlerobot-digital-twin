@@ -26,7 +26,7 @@ pip install -e .
 python scripts/run_mujoco.py
 ```
 
-Esto abre el modelo de base diferencial con dos brazos SO-101, pinzas y cuello. Se admiten conexión y reconexión de mandos Xbox/Switch; consulta [docs/TELEOP_GAMEPAD.md](docs/TELEOP_GAMEPAD.md).
+Esto abre el modelo de base diferencial con dos brazos SO-101, pinzas y cuello. Se admiten conexión y reconexión de mandos Xbox/Switch; consulta [docs/TELEOP_GAMEPAD.md](docs/TELEOP_GAMEPAD.md). Para comprobar todo en orden, sigue la [guía completa de pruebas](docs/GUIA_PRUEBAS_COMPLETA.md).
 
 Comprueba la integridad estática con `python scripts/validate_twin.py`. El protocolo que convierte este modelo en un gemelo físicamente validado está en [docs/CALIBRATION_PROTOCOL.md](docs/CALIBRATION_PROTOCOL.md).
 
@@ -42,6 +42,7 @@ Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y
 - `docs/`: calibración, VR, cámaras, Isaac Sim, modelos y sim-to-real.
 - `docs/ROADMAP_V04.md`: auditoría, fuentes y etapas con criterios de aceptación.
 - `docs/BUILD_LOG_V04.md`: registro reproducible de cada punto ejecutado.
+- `docs/GUIA_PRUEBAS_COMPLETA.md`: comprobación paso a paso de geometría, mando, cámaras, datasets y RL.
 - `third_party/xlerobot_official/`: snapshot inmutable de los CAD v0.4 y su licencia.
 - `assets/xlerobot/v04/`: 16 mallas derivadas en metros, separadas por función mecánica.
 - `twin/v04_frames.yaml`: convención y contrato de frames para el ensamblaje v0.4.

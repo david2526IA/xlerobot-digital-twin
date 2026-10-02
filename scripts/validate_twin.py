@@ -34,6 +34,10 @@ for geom_name in ("left_drive_tire", "right_drive_tire"):
     radius = model.geom(geom_name).size[0]
     if abs(radius - expected_radius) > 1e-9:
         raise SystemExit(f"{geom_name} radius {radius} != manifest {expected_radius}")
+for geom_name in ("left_drive_tire_visual", "right_drive_tire_visual"):
+    geom = model.geom(geom_name)
+    if abs(geom.size[0] - expected_radius) > 1e-9 or geom.group >= 3:
+        raise SystemExit(f"{geom_name} must expose the complete tire in the default renderer")
 for mesh_name in ("v04_base_chassis", "v04_upper_arm_mount", "v04_neck_refined"):
     if mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_MESH, mesh_name) < 0:
         raise SystemExit(f"Missing integrated v0.4 mesh: {mesh_name}")

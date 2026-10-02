@@ -10,7 +10,10 @@
     <color rgba="0.08 0.18 0.55 1"/>
   </material>
   <material name="rubber">
-    <color rgba="0.03 0.03 0.03 1"/>
+    <color rgba="0.24 0.25 0.27 1"/>
+  </material>
+  <material name="hub">
+    <color rgba="0.62 0.63 0.65 1"/>
   </material>
   <link name="base_link">
     <inertial>
@@ -26,21 +29,14 @@
       <material name="blue"/>
     </visual>
     <visual>
-      <origin xyz="-0.15 0 -0.3065" rpy="0 0 1.5708"/>
-      <geometry>
-        <mesh filename="../assets/xlerobot/v04/meshes/base_chassis.stl"/>
-      </geometry>
-      <material name="white"/>
-    </visual>
-    <visual>
-      <origin xyz="-0.15 0.205 -0.3065" rpy="0 0 1.5708"/>
+      <origin xyz="-0.15 0.225 -0.3065" rpy="0 0 1.5708"/>
       <geometry>
         <mesh filename="../assets/xlerobot/v04/meshes/drive_side_a_mount.stl"/>
       </geometry>
       <material name="motor"/>
     </visual>
     <visual>
-      <origin xyz="-0.15 -0.205 -0.3065" rpy="0 0 1.5708"/>
+      <origin xyz="-0.15 -0.225 -0.3065" rpy="0 0 1.5708"/>
       <geometry>
         <mesh filename="../assets/xlerobot/v04/meshes/drive_side_b_mount.stl"/>
       </geometry>
@@ -68,14 +64,21 @@
     <visual>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
       <geometry>
-        <cylinder radius="0.0635" length="0.04"/>
+        <cylinder radius="0.0635" length="0.05"/>
       </geometry>
       <material name="rubber"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.031" length="0.052"/>
+      </geometry>
+      <material name="hub"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
       <geometry>
-        <cylinder radius="0.0635" length="0.04"/>
+        <cylinder radius="0.0635" length="0.05"/>
       </geometry>
     </collision>
     <visual>
@@ -89,7 +92,7 @@
   <joint name="left_wheel_joint" type="continuous">
     <parent link="base_link"/>
     <child link="left_wheel_link"/>
-    <origin xyz="-0.15 0.23 -0.3065" rpy="0 0 0"/>
+    <origin xyz="-0.15 0.25 -0.3065" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="2.0" velocity="6.0"/>
     <dynamics damping="0.03" friction="0.052"/>
@@ -103,14 +106,21 @@
     <visual>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
       <geometry>
-        <cylinder radius="0.0635" length="0.04"/>
+        <cylinder radius="0.0635" length="0.05"/>
       </geometry>
       <material name="rubber"/>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder radius="0.031" length="0.052"/>
+      </geometry>
+      <material name="hub"/>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="1.5708 0 0"/>
       <geometry>
-        <cylinder radius="0.0635" length="0.04"/>
+        <cylinder radius="0.0635" length="0.05"/>
       </geometry>
     </collision>
     <visual>
@@ -124,7 +134,7 @@
   <joint name="right_wheel_joint" type="continuous">
     <parent link="base_link"/>
     <child link="right_wheel_link"/>
-    <origin xyz="-0.15 -0.23 -0.3065" rpy="0 0 0"/>
+    <origin xyz="-0.15 -0.25 -0.3065" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="2.0" velocity="6.0"/>
     <dynamics damping="0.03" friction="0.052"/>

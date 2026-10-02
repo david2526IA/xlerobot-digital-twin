@@ -13,14 +13,14 @@ frames:
     parent: base_link
     type: continuous
     axis: [0.0, 1.0, 0.0]
-    origin_m: {x: pending_assembly, y: 0.23, z: pending_assembly}
-    evidence: photo-derived from the user's assembled v0.4 against the 0.459 m cart width; direct centre-to-centre measurement pending
+    origin_m: {x: pending_assembly, y: 0.25, z: pending_assembly}
+    evidence: provisional placement immediately outside the 0.459 m cart envelope; direct centre-to-centre measurement pending
   right_wheel_link:
     parent: base_link
     type: continuous
     axis: [0.0, 1.0, 0.0]
-    origin_m: {x: pending_assembly, y: -0.23, z: pending_assembly}
-    evidence: photo-derived from the user's assembled v0.4 against the 0.459 m cart width; direct centre-to-centre measurement pending
+    origin_m: {x: pending_assembly, y: -0.25, z: pending_assembly}
+    evidence: provisional placement immediately outside the 0.459 m cart envelope; direct centre-to-centre measurement pending
   upper_mount_link:
     parent: base_link
     type: fixed

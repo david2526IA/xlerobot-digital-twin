@@ -10,6 +10,7 @@
     <material name="grey" rgba="0.5 0.5 0.5 1" specular="0.1" shininess="0.1"/>
     <material name="blue" rgba="0.15 0.25 0.5 1" specular="0.1" shininess="0.1"/>
     <material name="motor" rgba="0.1 0.1 0.1 1" specular="0.1" shininess="0.1"/>
+    <material name="tire" rgba="0.38 0.39 0.41 1" specular="0.18" shininess="0.12"/>
 
     <!-- Arm meshes -->
     <mesh name="Base" file="Base.stl"/>
@@ -67,7 +68,7 @@
     <default class="wheel">
       <joint damping="0.03" actuatorfrcrange="-2.0 2.0"/>
       <!-- Hardware BOM: two 5-inch (127 mm) directional wheels. -->
-      <geom type="cylinder" group="3" size="0.0635 0.02" rgba="0.16 0.17 0.18 1" contype="1" conaffinity="1" condim="6" friction="1.5 0.02 0.003"/>
+        <geom type="cylinder" group="3" size="0.0635 0.025" material="tire" contype="1" conaffinity="1" condim="6" friction="1.5 0.02 0.003"/>
     </default>
     <default class="caster">
       <geom type="sphere" group="3" size="0.02" rgba="0.7 0.7 0.7 1" contype="1" conaffinity="1" condim="1" priority="1"/>
@@ -112,23 +113,27 @@
       <!-- Raskog visual meshes -->
       <geom type="mesh" mesh="raskogbody" pos="-0.01668 0.502 0.515" euler="1.5708 0 0" material="blue" class="visual"/>
       <!-- v0.4 servo wheel cross-member and fixed motor interfaces. -->
-      <geom type="mesh" mesh="v04_base_chassis" pos="-0.15 0 -0.3065" euler="0 0 1.5708" material="white" class="visual"/>
-      <geom type="mesh" mesh="v04_drive_mount_a" pos="-0.15 0.205 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
-      <geom type="mesh" mesh="v04_drive_mount_b" pos="-0.15 -0.205 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
+      <!-- The extracted centre mesh is an exploded-view grouping, not an assembled cover. -->
+      <geom type="mesh" mesh="v04_drive_mount_a" pos="-0.15 0.225 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
+      <geom type="mesh" mesh="v04_drive_mount_b" pos="-0.15 -0.225 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
       
       <!-- Drive wheels (active wheels, similar to car) -->
       <!-- Positioned at the bottom of chassis, with wheels touching the ground -->
-      <!-- Photo-derived physical track is 460 mm; controller uses an effective 250 mm wheelbase. -->
-      <body name="left_wheel" pos="-0.15 0.23 -0.3065" zaxis="0 1 0">
+      <!-- Provisional 500 mm physical track; controller uses an effective 250 mm wheelbase. -->
+      <body name="left_wheel" pos="-0.15 0.25 -0.3065" zaxis="0 1 0">
         <joint name="left_wheel_joint"/>
         <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
         <geom name="left_drive_tire" class="wheel"/>
+        <geom name="left_drive_tire_visual" type="cylinder" size="0.0635 0.025" material="tire" class="visual"/>
+        <geom type="cylinder" size="0.031 0.026" rgba="0.62 0.63 0.65 1" class="visual"/>
         <geom type="mesh" mesh="v04_drive_rotor_a" euler="0 -1.5708 0" material="grey" class="visual"/>
       </body>
-      <body name="right_wheel" pos="-0.15 -0.23 -0.3065" zaxis="0 1 0">
+      <body name="right_wheel" pos="-0.15 -0.25 -0.3065" zaxis="0 1 0">
         <joint name="right_wheel_joint"/>
         <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
         <geom name="right_drive_tire" class="wheel"/>
+        <geom name="right_drive_tire_visual" type="cylinder" size="0.0635 0.025" material="tire" class="visual"/>
+        <geom type="cylinder" size="0.031 0.026" rgba="0.62 0.63 0.65 1" class="visual"/>
         <geom type="mesh" mesh="v04_drive_rotor_b" euler="0 -1.5708 0" material="grey" class="visual"/>
       </body>
       
@@ -402,9 +407,10 @@
       <joint joint="right_wheel_joint" coef="0.5"/>
     </fixed>
     <!-- Turning: left and right wheels rotate in opposite directions -->
+    <!-- 2x coefficient maps the official 0.25 m effective wheelbase onto the 0.50 m geometry. -->
     <fixed name="turn">
-      <joint joint="left_wheel_joint" coef="-0.5"/>
-      <joint joint="right_wheel_joint" coef="0.5"/>
+      <joint joint="left_wheel_joint" coef="-1.0"/>
+      <joint joint="right_wheel_joint" coef="1.0"/>
     </fixed>
   </tendon>
 
