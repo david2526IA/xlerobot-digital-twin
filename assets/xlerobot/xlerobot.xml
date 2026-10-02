@@ -67,7 +67,7 @@
     <default class="wheel">
       <joint damping="0.03" actuatorfrcrange="-2.0 2.0"/>
       <!-- Hardware BOM: two 5-inch (127 mm) directional wheels. -->
-      <geom type="cylinder" group="3" size="0.0635 0.02" rgba="0.055 0.055 0.055 1" contype="1" conaffinity="1" condim="6" friction="1.5 0.02 0.003"/>
+      <geom type="cylinder" group="3" size="0.0635 0.02" rgba="0.16 0.17 0.18 1" contype="1" conaffinity="1" condim="6" friction="1.5 0.02 0.003"/>
     </default>
     <default class="caster">
       <geom type="sphere" group="3" size="0.02" rgba="0.7 0.7 0.7 1" contype="1" conaffinity="1" condim="1" priority="1"/>
@@ -113,19 +113,19 @@
       <geom type="mesh" mesh="raskogbody" pos="-0.01668 0.502 0.515" euler="1.5708 0 0" material="blue" class="visual"/>
       <!-- v0.4 servo wheel cross-member and fixed motor interfaces. -->
       <geom type="mesh" mesh="v04_base_chassis" pos="-0.15 0 -0.3065" euler="0 0 1.5708" material="white" class="visual"/>
-      <geom type="mesh" mesh="v04_drive_mount_a" pos="-0.15 0.095 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
-      <geom type="mesh" mesh="v04_drive_mount_b" pos="-0.15 -0.095 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
+      <geom type="mesh" mesh="v04_drive_mount_a" pos="-0.15 0.205 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
+      <geom type="mesh" mesh="v04_drive_mount_b" pos="-0.15 -0.205 -0.3065" euler="0 0 1.5708" material="motor" class="visual"/>
       
       <!-- Drive wheels (active wheels, similar to car) -->
       <!-- Positioned at the bottom of chassis, with wheels touching the ground -->
-      <!-- XLeRobot 0.4 controller config: 50 mm radius, 250 mm wheel track. -->
-      <body name="left_wheel" pos="-0.15 0.125 -0.3065" zaxis="0 1 0">
+      <!-- Photo-derived physical track is 460 mm; controller uses an effective 250 mm wheelbase. -->
+      <body name="left_wheel" pos="-0.15 0.23 -0.3065" zaxis="0 1 0">
         <joint name="left_wheel_joint"/>
         <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
         <geom name="left_drive_tire" class="wheel"/>
         <geom type="mesh" mesh="v04_drive_rotor_a" euler="0 -1.5708 0" material="grey" class="visual"/>
       </body>
-      <body name="right_wheel" pos="-0.15 -0.125 -0.3065" zaxis="0 1 0">
+      <body name="right_wheel" pos="-0.15 -0.23 -0.3065" zaxis="0 1 0">
         <joint name="right_wheel_joint"/>
         <inertial pos="0 0 0" mass="1" diaginertia="0.01 0.01 0.01"/>
         <geom name="right_drive_tire" class="wheel"/>
@@ -136,8 +136,8 @@
       <!-- Positioned at the bottom of chassis, touching the ground -->
       <!-- Note: caster wheels are geoms (not bodies) with zero friction for free rolling -->
       <!-- Use condim="1" and priority="1" to match car.xml's front wheel and avoid friction -->
-      <geom name="front_caster" pos="0.15 -0.225 -0.35" type="sphere" size="0.02" rgba="0.7 0.7 0.7 1" contype="1" conaffinity="1" condim="1" priority="1" group="3"/>
-      <geom name="back_caster" pos="0.15 0.225 -0.35" type="sphere" size="0.02" rgba="0.7 0.7 0.7 1" contype="1" conaffinity="1" condim="1" priority="1" group="3"/>
+      <geom name="right_caster" pos="0.15 -0.13 -0.35" type="sphere" size="0.02" rgba="0.85 0.85 0.85 1" contype="1" conaffinity="1" condim="1" priority="1" group="3"/>
+      <geom name="left_caster" pos="0.15 0.13 -0.35" type="sphere" size="0.02" rgba="0.85 0.85 0.85 1" contype="1" conaffinity="1" condim="1" priority="1" group="3"/>
 
       <!-- First Arm -->
       <body name="Base" pos="-0.09 -0.11 0.395" euler="0 0 0">
@@ -322,23 +322,26 @@
           <geom type="mesh" mesh="v04_head_gimbal_base" pos="-0.00974 0.0049 0.02055" material="white" class="visual"/>
           <geom type="mesh" mesh="v04_head_yaw_housing" pos="0.00169 0.0048 0.06299" material="motor" class="visual"/>
           
-          <body name="head_tilt_link" pos="0.001 0.002 0.09815" euler="0 0 3.14159265">
+          <body name="head_tilt_link" pos="0.001 0.002 0.09815">
             <inertial pos="0 0 0" mass="0.02087" diaginertia="0.0061 0.0014 0.0061"/>
             <joint name="head_tilt_joint" type="hinge" axis="0 1 0" range="-0.76 1.45" class="sts3215"/>
             <!-- Visual meshes -->
             <geom type="mesh" mesh="v04_head_pitch_holder" pos="-0.00816 0.00218 -0.0104" material="white" class="visual"/>
             <geom type="mesh" mesh="v04_camera_mount" pos="0.025 0 0.03" euler="0 0 1.5708" material="motor" class="visual"/>
+            <!-- User photographs: rectangular camera board faces forward from the tilt holder. -->
+            <geom name="neck_camera_body" type="box" size="0.010 0.035 0.027" pos="0.065 0 0.005" material="motor" class="visual"/>
+            <geom name="neck_camera_lens" type="cylinder" size="0.008 0.005" pos="0.078 0 0.005" euler="0 1.5708 0" rgba="0.03 0.08 0.12 1" class="visual"/>
             
             <!-- Camera frames -->
-            <body name="head_camera_link" pos="0.025 0 0.03">
-              <body name="head_camera_rgb_frame" pos="0 -0.00 0" euler="-1.5708 0 -1.5708">
+            <body name="head_camera_link" pos="0.083 0 0.005">
+              <body name="head_camera_rgb_frame">
                 <site name="head_camera_rgb_optical_frame" type="box" size="0.01 0.01 0.01" rgba="1 0 0 0.3"/>
                 <!-- fovy is provisional until the installed camera is calibrated. -->
-                <camera name="neck_rgb" pos="0 0 0" fovy="60"/>
+                <camera name="neck_rgb" pos="0 0 0" xyaxes="0 -1 0 0 0 1" fovy="60"/>
               </body>
-              <body name="head_camera_depth_frame" pos="0 0.00 0" euler="-1.5708 0 -1.5708">
+              <body name="head_camera_depth_frame">
                 <site name="head_camera_depth_optical_frame" type="box" size="0.01 0.01 0.01" rgba="0 1 0 0.0"/>
-                <camera name="neck_depth" pos="0 0 0" fovy="60"/>
+                <camera name="neck_depth" pos="0 0 0" xyaxes="0 -1 0 0 0 1" fovy="60"/>
               </body>
             </body>
           </body>

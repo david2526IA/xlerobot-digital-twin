@@ -31,7 +31,8 @@ def main() -> None:
         camera.CreateVerticalApertureAttr(vertical_aperture_mm)
         camera.CreateClippingRangeAttr(Gf.Vec2f(0.03, 100.0))
         xform = UsdGeom.Xformable(camera.GetPrim())
-        xform.AddRotateYOp().Set(180.0)
+        rotate = next((op for op in xform.GetOrderedXformOps() if op.GetOpName() == "xformOp:rotateY"), None)
+        (rotate or xform.AddRotateYOp()).Set(180.0)
         camera.GetPrim().SetCustomDataByKey("xlerobot:sensor_role", "rgb" if name == "neck_rgb" else "depth")
         camera.GetPrim().SetCustomDataByKey("xlerobot:calibration", "provisional_60deg_fov")
 

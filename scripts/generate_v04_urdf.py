@@ -120,12 +120,12 @@ def build():
     inertial(base, 10.0, "0 0 0", (0.70, 0.67, 0.30))
     mesh_visual(base, "../assets/xlerobot/assets/raskogbody.stl", "-0.01668 0.502 0.515", "1.5708 0 0", "0.0009 0.001 0.0009", "blue")
     mesh_visual(base, "../assets/xlerobot/v04/meshes/base_chassis.stl", "-0.15 0 -0.3065", "0 0 1.5708")
-    mesh_visual(base, "../assets/xlerobot/v04/meshes/drive_side_a_mount.stl", "-0.15 0.095 -0.3065", "0 0 1.5708", mat="motor")
-    mesh_visual(base, "../assets/xlerobot/v04/meshes/drive_side_b_mount.stl", "-0.15 -0.095 -0.3065", "0 0 1.5708", mat="motor")
+    mesh_visual(base, "../assets/xlerobot/v04/meshes/drive_side_a_mount.stl", "-0.15 0.205 -0.3065", "0 0 1.5708", mat="motor")
+    mesh_visual(base, "../assets/xlerobot/v04/meshes/drive_side_b_mount.stl", "-0.15 -0.205 -0.3065", "0 0 1.5708", mat="motor")
     primitive(base, "box", {"size": "0.3913 0.459 0.10"}, "0 0 -0.30", collision=True)
     primitive(base, "box", {"size": "0.315 0.405 0.59"}, "0 0 0.015", collision=True)
 
-    for side, y, rotor in (("left", 0.125, "a"), ("right", -0.125, "b")):
+    for side, y, rotor in (("left", 0.23, "a"), ("right", -0.23, "b")):
         link = ET.SubElement(robot, "link", name=f"{side}_wheel_link")
         inertial(link, 0.6, inertia=(0.0015, 0.0008, 0.0015))
         primitive(link, "cylinder", {"radius": "0.0635", "length": "0.04"}, rpy="1.5708 0 0", mat="rubber")
@@ -156,11 +156,13 @@ def build():
     inertial(tilt, 0.10, inertia=(0.0061, 0.0014, 0.0061))
     mesh_visual(tilt, "../assets/xlerobot/v04/meshes/head_pitch_holder.stl")
     mesh_visual(tilt, "../assets/xlerobot/v04/meshes/camera_mount.stl", "0.025 0 0.03", "0 0 1.5708", mat="motor")
+    primitive(tilt, "box", {"size": "0.020 0.070 0.054"}, "0.065 0 0.005", mat="motor")
+    primitive(tilt, "cylinder", {"radius": "0.008", "length": "0.010"}, "0.078 0 0.005", "0 1.5708 0", mat="motor")
     joint(robot, "head_tilt_joint", "revolute", "head_pan_link", "head_tilt_link", "0.00258 -0.00072 0.09705", axis="0 1 0", limits={"lower": -0.76, "upper": 1.45, "effort": 0.68, "velocity": 4.0})
 
     camera = ET.SubElement(robot, "link", name="head_camera_optical_frame")
     inertial(camera, 0.02, inertia=(0.00001, 0.00001, 0.00001))
-    joint(robot, "head_camera_joint", "fixed", "head_tilt_link", "head_camera_optical_frame", "0.025 0 0.03", "-1.5708 0 -1.5708")
+    joint(robot, "head_camera_joint", "fixed", "head_tilt_link", "head_camera_optical_frame", "0.083 0 0.005", "-1.5708 0 -1.5708")
     return robot
 
 

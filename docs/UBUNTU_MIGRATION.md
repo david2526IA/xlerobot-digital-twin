@@ -41,8 +41,8 @@ No copies `C:\isaacsim`: usa la distribución Linux. Suponiendo que está en
 ./isaac/open.sh "$HOME/isaacsim"
 ```
 
-El primer comando regenera y valida `isaac/generated/xlerobot_v04/xlerobot_v04.usda`; el
-segundo lo abre en una ventana visible.
+El primer comando regenera y valida un `xlerobot_v04.usda` bajo
+`isaac/generated/`; el segundo abre automáticamente el más reciente.
 
 ## 3. Transferir resultados opcionales
 

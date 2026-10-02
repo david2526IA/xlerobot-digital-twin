@@ -91,9 +91,9 @@ ambas evidencias hasta contrastarlas con el montaje y una medición física.
 
 ### Siguiente punto
 
-Ensamblar las piezas en el árbol cinemático v0.4 y crear el URDF/Xacro. La vía
-se fijará a 0,25 m por evidencia oficial; los offsets restantes permanecerán
-provisionales hasta validación geométrica o física.
+Ensamblar las piezas en el árbol cinemático v0.4 y crear el URDF/Xacro. En ese
+momento se asumió una vía física de 0,25 m; la corrección fotográfica del
+2026-10-02 demuestra que ese valor pertenece al controlador.
 
 ## 2026-10-01 — Punto 3: ensamblaje canónico e integración
 
@@ -102,11 +102,13 @@ provisionales hasta validación geométrica o física.
 Se añadió `scripts/generate_v04_urdf.py`, que genera de forma determinista
 `robot_description/xlerobot_v04.urdf`. El árbol contiene 22 links, 21 joints y
 16 articulaciones móviles: dos ruedas, doce articulaciones de brazos/pinzas y
-dos del cuello. Usa REP-103, conserva una vía de 0,25 m y separa dos valores que
-no deben confundirse:
+dos del cuello. Usa REP-103 y separa magnitudes físicas de parámetros efectivos
+del controlador para no confundirlos:
 
 - radio físico de neumático: 0,0635 m (rueda comercial de 5 pulgadas);
 - radio efectivo del controlador oficial: 0,05 m.
+- vía física provisional reconstruida de fotografías: 0,460 m;
+- `wheelbase` efectivo del controlador oficial: 0,250 m.
 
 Los 60 mm observados en las piezas STEP corresponden a la interfaz/rotor y no
 se usan como diámetro exterior del neumático.
@@ -131,7 +133,7 @@ dos cámaras.
 
 Los STEP oficiales se publicaron como vistas explotadas y no fijan todas las
 transformaciones ensambladas. Los offsets no publicados se reconstruyeron con
-la vía oficial, las dimensiones CAD y el modelo funcional existente. Siguen
+las dimensiones CAD, fotografías y el modelo funcional existente. Siguen
 necesitando medición del robot real: masas e inercias, posición longitudinal
 exacta del eje, fricción y deformación de neumáticos, holguras, latencia y
 óptica/extrínsecas exactas de la cámara.
@@ -140,3 +142,22 @@ exacta del eje, fricción y deformación de neumáticos, holguras, latencia y
 
 Completar la teleoperación Xbox con dead-man, brazos, cuello y pinzas, usando la
 misma interfaz de 16 acciones en MuJoCo y, después, en Isaac Sim.
+
+## 2026-10-02 — Corrección con fotografías reales y teleoperación
+
+Las fotografías `IMG_4064.DNG` y `IMG_4065.DNG` muestran las ruedas grandes en
+los extremos exteriores del carro y los dos apoyos pasivos por dentro. Se dejó
+de usar la posición explotada del STEP como ensamblaje, se adoptó una vía física
+provisional de 0,460 m y se conservaron por separado los 0,250 m del controlador.
+
+La cámara se corrigió eliminando un giro de 180° que sólo existía en el MJCF. El
+cuerpo y la lente ahora están delante del soporte de tilt; la cámara neutral
+mira en `+x` y su frame óptico cumple REP-103. MuJoCo y el URDF vuelven a tener
+la misma transformación.
+
+La teleoperación de mando ahora cubre base, cuello, los dos brazos y ambas
+pinzas en MuJoCo e Isaac Sim. Incluye reconexión en caliente en MuJoCo, zona
+muerta, curva suave, dead-man, E-stop enclavado y vuelta a home. Sus mapeos y
+mecanismos de seguridad están cubiertos por pruebas automáticas; el adaptador de
+Isaac abrió el USD regenerado, añadió suelo y validó los 16 joints durante una
+prueba headless de diez pasos. Falta la prueba física con el mando del usuario.

@@ -26,7 +26,7 @@ for site in ("left_gripper_tip", "right_gripper_tip"):
 left = model.body("left_wheel").pos
 right = model.body("right_wheel").pos
 track = abs(left[1] - right[1])
-expected = manifest["base"]["wheel_track_m"]
+expected = manifest["base"]["wheel_physical_track_m"]
 if abs(track - expected) > 1e-9:
     raise SystemExit(f"Wheel track {track} != manifest {expected}")
 expected_radius = manifest["base"]["wheel_physical_radius_m"]

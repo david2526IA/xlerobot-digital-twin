@@ -11,8 +11,8 @@ output="$repo_dir/isaac/generated"
 [[ -f "$importer" ]] || { echo "Missing $importer" >&2; exit 1; }
 mkdir -p "$output"
 "$python_bin" "$importer" --urdf "$repo_dir/robot_description/xlerobot_v04.urdf" --usd-path "$output" --no-fix-base --no-merge-fixed-joints --joint-drive-type force --joint-target-type position
-usd="$output/xlerobot_v04/xlerobot_v04.usda"
-[[ -f "$usd" ]] || { echo "Importer did not create $usd" >&2; exit 1; }
+usd="$(find "$output" -type f -name 'xlerobot_v04.usda' -printf '%T@ %p\n' | sort -nr | head -n 1 | cut -d' ' -f2-)"
+[[ -n "$usd" && -f "$usd" ]] || { echo "Importer did not create xlerobot_v04.usda below $output" >&2; exit 1; }
 "$python_bin" "$repo_dir/isaac/postprocess_v04.py" "$usd"
 "$python_bin" "$repo_dir/isaac/verify_usd.py" "$usd"
 echo "Isaac USD ready: $usd"

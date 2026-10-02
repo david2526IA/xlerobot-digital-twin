@@ -14,13 +14,35 @@ Indica la carpeta de instalación desde PowerShell:
 
 El comando usa el importador URDF oficial, conserva la base flotante y los fixed
 joints, crea las cámaras RTX `neck_rgb` y `neck_depth`, y valida los 16 joints.
-El USD regenerable queda en
-`isaac/generated/xlerobot_v04/xlerobot_v04.usda`.
+El USD regenerable queda bajo `isaac/generated/`. Isaac puede añadir un sufijo
+al directorio en importaciones sucesivas; los scripts imprimen la ruta exacta y
+`open` selecciona automáticamente la versión más reciente.
 
 Para verlo después de importar:
 
 ```powershell
 .\isaac\open.ps1 -IsaacRoot "C:\isaacsim"
+```
+
+## Teleoperación con mando en Isaac Sim
+
+El lanzador usa el mismo mapa seguro que MuJoCo y abre automáticamente el USD
+generado más reciente:
+
+```powershell
+C:\isaacsim\python.bat .\isaac\teleop_gamepad.py
+```
+
+Mantén `A` pulsado como hombre muerto. Sin bumper, el stick izquierdo mueve la
+base y el derecho el cuello. `LB` selecciona el brazo izquierdo, `RB` el derecho
+y ambos permiten movimiento bimanual. `B` enclava la parada de emergencia;
+`A+Start` la libera y lleva los objetivos articulares a cero. Consulta el mapa
+completo en `docs/TELEOP_GAMEPAD.md`.
+
+Prueba automática sin ventana ni mando:
+
+```powershell
+C:\isaacsim\python.bat .\isaac\teleop_gamepad.py --headless --smoke-steps 10
 ```
 
 La óptica usa temporalmente 60 grados de FOV. Debe sustituirse por la

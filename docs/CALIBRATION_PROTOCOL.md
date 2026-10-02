@@ -2,11 +2,12 @@
 
 Este gemelo separa parámetros **confirmados** de parámetros **a identificar**.
 Los confirmados son: base diferencial, ruedas nominales de 5 pulgadas
-(`0.0635 m` de radio geométrico), radio efectivo de control `0.050 m`, distancia
-entre ejes de rueda `0.250 m`, dos SO-101 de 6 acciones y dos motores de cuello.
-El diámetro procede de la guía/BOM 0.4 y el radio efectivo/vía del controlador
-oficial `xlerobot_2wheels`. La diferencia entre radio geométrico y efectivo se
-mantiene explícita y debe identificarse con pruebas de rodadura.
+(`0.0635 m` de radio geométrico), radio efectivo de control `0.050 m`, dos
+SO-101 de 6 acciones y dos motores de cuello. La vía física provisional es
+`0.460 m`, reconstruida de las fotos del robot ensamblado contra los `0.459 m`
+del carro modelado; debe sustituirse por una medición centro-a-centro. El
+`wheelbase 0.250 m` pertenece al controlador oficial `xlerobot_2wheels` y no a
+la colocación visual. Estas diferencias deben identificarse con rodadura real.
 
 ## Medición obligatoria en el robot real
 

@@ -45,7 +45,7 @@ def main() -> None:
     left_y = vector(joints["left_wheel_joint"].find("origin").get("xyz"))[1]
     right_y = vector(joints["right_wheel_joint"].find("origin").get("xyz"))[1]
     track = abs(left_y - right_y)
-    if not math.isclose(track, MANIFEST["base"]["wheel_track_m"], abs_tol=1e-9):
+    if not math.isclose(track, MANIFEST["base"]["wheel_physical_track_m"], abs_tol=1e-9):
         errors.append(f"URDF wheel track={track} does not match manifest")
 
     wheel_links = {

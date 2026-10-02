@@ -26,7 +26,7 @@ pip install -e .
 python scripts/run_mujoco.py
 ```
 
-Esto abre el modelo de base diferencial con dos brazos SO-101, pinzas y cuello. Conecta un mando Switch compatible antes de iniciar para teleoperar; consulta [docs/TELEOP_SWITCH.md](docs/TELEOP_SWITCH.md).
+Esto abre el modelo de base diferencial con dos brazos SO-101, pinzas y cuello. Se admiten conexión y reconexión de mandos Xbox/Switch; consulta [docs/TELEOP_GAMEPAD.md](docs/TELEOP_GAMEPAD.md).
 
 Comprueba la integridad estática con `python scripts/validate_twin.py`. El protocolo que convierte este modelo en un gemelo físicamente validado está en [docs/CALIBRATION_PROTOCOL.md](docs/CALIBRATION_PROTOCOL.md).
 

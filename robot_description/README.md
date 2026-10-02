@@ -13,9 +13,9 @@ Regenerate and validate it with:
 
 The description has 22 links, 21 joints and 16 moving joints: two wheels, twelve
 arm/gripper joints and two head joints. The two 127 mm directional wheels are
-continuous revolute joints at a 0.25 m track. The physical tire radius is
-0.0635 m; the official controller's separate effective conversion radius is
-0.05 m and is retained in `twin/manifest.yaml`.
+continuous revolute joints at a photo-derived 0.46 m physical track. The
+physical tire radius is 0.0635 m. The official controller's 0.05 m effective
+radius and 0.25 m effective `wheelbase` remain separate in `twin/manifest.yaml`.
 
 The CAD dual-wheel assembly is exploded, so longitudinal/vertical mounting
 offsets not recoverable from published evidence are provisional. They are

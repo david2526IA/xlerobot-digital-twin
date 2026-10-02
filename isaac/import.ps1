@@ -18,15 +18,9 @@ New-Item -ItemType Directory -Force -Path $outputPath | Out-Null
 
 & $python $importer --urdf $urdf --usd-path $outputPath --no-fix-base --no-merge-fixed-joints --joint-drive-type force --joint-target-type position
 if ($LASTEXITCODE -ne 0) { throw "Isaac URDF import failed." }
-$expectedUsd = Join-Path $outputPath "xlerobot_v04/xlerobot_v04.usda"
-if (Test-Path -LiteralPath $expectedUsd) {
-    $generated = Get-Item -LiteralPath $expectedUsd
-} else {
-    $generated = Get-ChildItem -LiteralPath $outputPath -Recurse -File |
-        Where-Object { $_.Extension -in @(".usd", ".usda", ".usdc") } |
-        Sort-Object LastWriteTime -Descending |
-        Select-Object -First 1
-}
+$generated = Get-ChildItem -LiteralPath $outputPath -Recurse -File -Filter "xlerobot_v04.usda" |
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 1
 if (-not $generated) { throw "Importer did not create a USD below $outputPath" }
 
 & $python (Join-Path $repo "isaac/postprocess_v04.py") $generated.FullName
