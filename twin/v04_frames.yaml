@@ -51,6 +51,7 @@ frames:
     parent: head_tilt_link
     type: fixed
     optical_axes: {x: right, y: down, z: forward}
+    neutral_view_parent_axis: [-1.0, 0.0, 0.0]
     origin_m: pending_camera_calibration
 
 cad_export_frames:

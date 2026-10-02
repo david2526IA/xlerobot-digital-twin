@@ -701,14 +701,14 @@
       <material name="motor"/>
     </visual>
     <visual>
-      <origin xyz="0.065 0 0.005" rpy="0 0 0"/>
+      <origin xyz="-0.065 0 0.005" rpy="0 0 0"/>
       <geometry>
         <box size="0.020 0.070 0.054"/>
       </geometry>
       <material name="motor"/>
     </visual>
     <visual>
-      <origin xyz="0.078 0 0.005" rpy="0 1.5708 0"/>
+      <origin xyz="-0.078 0 0.005" rpy="0 1.5708 0"/>
       <geometry>
         <cylinder radius="0.008" length="0.010"/>
       </geometry>
@@ -733,7 +733,7 @@
   <joint name="head_camera_joint" type="fixed">
     <parent link="head_tilt_link"/>
     <child link="head_camera_optical_frame"/>
-    <origin xyz="0.083 0 0.005" rpy="-1.5708 0 -1.5708"/>
+    <origin xyz="-0.083 0 0.005" rpy="-1.5708 0 1.5708"/>
     <dynamics damping="0.03" friction="0.052"/>
   </joint>
 </robot>

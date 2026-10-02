@@ -150,10 +150,9 @@ los extremos exteriores del carro y los dos apoyos pasivos por dentro. Se dejó
 de usar la posición explotada del STEP como ensamblaje, se adoptó una vía física
 provisional de 0,460 m y se conservaron por separado los 0,250 m del controlador.
 
-La cámara se corrigió eliminando un giro de 180° que sólo existía en el MJCF. El
-cuerpo y la lente ahora están delante del soporte de tilt; la cámara neutral
-mira en `+x` y su frame óptico cumple REP-103. MuJoCo y el URDF vuelven a tener
-la misma transformación.
+La cámara se corrigió inicialmente eliminando un giro de 180° que sólo existía
+en el MJCF. Esa interpretación de `+x` quedó posteriormente reemplazada por la
+corrección contrastada con el montaje final del vídeo que se documenta abajo.
 
 La teleoperación de mando ahora cubre base, cuello, los dos brazos y ambas
 pinzas en MuJoCo e Isaac Sim. Incluye reconexión en caliente en MuJoCo, zona
@@ -172,3 +171,11 @@ se modeló explícitamente con neumático de 127 mm, 50 mm de ancho y cubo visib
 La vía geométrica provisional pasa a 0,500 m para situar los neumáticos fuera de
 la envolvente de 0,459 m del carro. Este cambio debe confirmarse midiendo la
 distancia real entre centros antes de identificar la dinámica.
+
+## 2026-10-02 — Orientación del cuello contrastada con el montaje final
+
+El tramo final del vídeo de montaje muestra la cámara apuntando hacia el mismo
+lado operativo que los brazos. En el ensamblaje canónico ese lado corresponde a
+`-x`, no a `+x`. Se giraron conjuntamente el cuerpo, la lente y el frame óptico
+en MuJoCo y URDF. Isaac conserva su `rotateY=180°` local porque USD mira por
+`-Z`; ese giro sólo adapta convenciones de cámara y no cambia el lado físico.
