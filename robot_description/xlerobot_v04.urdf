@@ -701,16 +701,30 @@
       <material name="motor"/>
     </visual>
     <visual>
-      <origin xyz="-0.065 0 0.005" rpy="0 0 0"/>
+      <origin xyz="-0.065 0 0.007" rpy="0 0 0"/>
       <geometry>
-        <box size="0.020 0.070 0.054"/>
+        <box size="0.020 0.074 0.056"/>
       </geometry>
       <material name="motor"/>
     </visual>
     <visual>
-      <origin xyz="-0.078 0 0.005" rpy="0 1.5708 0"/>
+      <origin xyz="-0.077 0 0.007" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.008" length="0.010"/>
+        <box size="0.004 0.068 0.050"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.080 0 0.012" rpy="0 1.5708 0"/>
+      <geometry>
+        <cylinder radius="0.010" length="0.006"/>
+      </geometry>
+      <material name="motor"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.083 0 0.012" rpy="0 1.5708 0"/>
+      <geometry>
+        <cylinder radius="0.0065" length="0.008"/>
       </geometry>
       <material name="motor"/>
     </visual>

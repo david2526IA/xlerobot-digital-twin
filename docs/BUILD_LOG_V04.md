@@ -179,3 +179,16 @@ lado operativo que los brazos. En el ensamblaje canónico ese lado corresponde a
 `-x`, no a `+x`. Se giraron conjuntamente el cuerpo, la lente y el frame óptico
 en MuJoCo y URDF. Isaac conserva su `rotateY=180°` local porque USD mira por
 `-Z`; ese giro sólo adapta convenciones de cámara y no cambia el lado físico.
+
+## 2026-10-05 — Mesa en el frente operativo y cámara 0.4 refinada
+
+La mesa de entrenamiento seguía en `+x`, aunque los brazos y la cámara del
+cuello trabajan hacia `-x`. Se trasladaron la mesa, el objetivo y el cubo al
+lado operativo, y el muestreo del cubo quedó limitado a la superficie física de
+la mesa. También se refinó la carcasa visual de la cámara del cuello con
+frontal, bisel, lente y LED, tomando como referencia el montaje oficial 0.4 y
+las fotografías del robot físico. El frame óptico conserva su eje hacia `-x`.
+
+Una prueba automática impide volver a colocar mesa y cámara en lados opuestos.
+El URDF fue regenerado y la revisión validada de Isaac Sim pasó a
+`isaac/generated/xlerobot_v04_5/xlerobot_v04.usda`.

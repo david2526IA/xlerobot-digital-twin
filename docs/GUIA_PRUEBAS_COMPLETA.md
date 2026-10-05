@@ -166,7 +166,7 @@ añade `neck_rgb`/`neck_depth` y valida 16 joints. La revisión actualmente
 validada es:
 
 ```text
-isaac/generated/xlerobot_v04_4/xlerobot_v04.usda
+isaac/generated/xlerobot_v04_5/xlerobot_v04.usda
 ```
 
 ### 7.3 Abrir para inspección
@@ -379,4 +379,3 @@ dataset o política dependiente de cámara/física.
 - watchdog de comunicación;
 - signo, cero y límites de cada joint comprobados;
 - política validada primero en simulación y luego incrementalmente.
-

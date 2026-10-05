@@ -158,8 +158,12 @@ def build():
     inertial(tilt, 0.10, inertia=(0.0061, 0.0014, 0.0061))
     mesh_visual(tilt, "../assets/xlerobot/v04/meshes/head_pitch_holder.stl")
     mesh_visual(tilt, "../assets/xlerobot/v04/meshes/camera_mount.stl", "0.025 0 0.03", "0 0 1.5708", mat="motor")
-    primitive(tilt, "box", {"size": "0.020 0.070 0.054"}, "-0.065 0 0.005", mat="motor")
-    primitive(tilt, "cylinder", {"radius": "0.008", "length": "0.010"}, "-0.078 0 0.005", "0 1.5708 0", mat="motor")
+    # Compact camera visible in the official v0.4 assembly and the physical
+    # reference photos. The optical axis points toward the -x operating side.
+    primitive(tilt, "box", {"size": "0.020 0.074 0.056"}, "-0.065 0 0.007", mat="motor")
+    primitive(tilt, "box", {"size": "0.004 0.068 0.050"}, "-0.077 0 0.007", mat="motor")
+    primitive(tilt, "cylinder", {"radius": "0.010", "length": "0.006"}, "-0.080 0 0.012", "0 1.5708 0", mat="motor")
+    primitive(tilt, "cylinder", {"radius": "0.0065", "length": "0.008"}, "-0.083 0 0.012", "0 1.5708 0", mat="motor")
     joint(robot, "head_tilt_joint", "revolute", "head_pan_link", "head_tilt_link", "0.00258 -0.00072 0.09705", axis="0 1 0", limits={"lower": -0.76, "upper": 1.45, "effort": 0.68, "velocity": 4.0})
 
     camera = ET.SubElement(robot, "link", name="head_camera_optical_frame")

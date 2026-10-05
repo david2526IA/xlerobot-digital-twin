@@ -333,9 +333,13 @@
             <!-- Visual meshes -->
             <geom type="mesh" mesh="v04_head_pitch_holder" pos="-0.00816 0.00218 -0.0104" material="white" class="visual"/>
             <geom type="mesh" mesh="v04_camera_mount" pos="0.025 0 0.03" euler="0 0 1.5708" material="motor" class="visual"/>
-            <!-- Assembly video: camera board faces the -x operating side from the tilt holder. -->
-            <geom name="neck_camera_body" type="box" size="0.010 0.035 0.027" pos="-0.065 0 0.005" material="motor" class="visual"/>
-            <geom name="neck_camera_lens" type="cylinder" size="0.008 0.005" pos="-0.078 0 0.005" euler="0 1.5708 0" rgba="0.03 0.08 0.12 1" class="visual"/>
+            <!-- V0.4 head camera: compact black webcam on the two-axis tilt holder,
+                 facing the -x operating side. Dimensions remain calibration targets. -->
+            <geom name="neck_camera_body" type="box" size="0.010 0.037 0.028" pos="-0.065 0 0.007" rgba="0.035 0.04 0.045 1" class="visual"/>
+            <geom name="neck_camera_face" type="box" size="0.002 0.034 0.025" pos="-0.077 0 0.007" rgba="0.055 0.06 0.065 1" class="visual"/>
+            <geom name="neck_camera_lens_bezel" type="cylinder" size="0.010 0.003" pos="-0.080 0 0.012" euler="0 1.5708 0" rgba="0.015 0.018 0.022 1" class="visual"/>
+            <geom name="neck_camera_lens" type="cylinder" size="0.0065 0.004" pos="-0.083 0 0.012" euler="0 1.5708 0" rgba="0.02 0.10 0.16 1" class="visual"/>
+            <geom name="neck_camera_status_led" type="sphere" size="0.0018" pos="-0.080 -0.023 -0.010" rgba="0.1 0.9 0.25 1" class="visual"/>
             
             <!-- Camera frames -->
             <body name="head_camera_link" pos="-0.083 0 0.005">
@@ -355,11 +359,14 @@
     </body>
     <!-- Canonical tabletop training scene. All dimensions are in metres. -->
     <geom name="floor" type="plane" size="5 5 0.1" rgba="0.16 0.16 0.16 1" friction="1.0 0.01 0.001" contype="1" conaffinity="1"/>
-    <body name="training_table" pos="0.72 0 0.750">
+    <!-- The arms and neutral head camera face -x, therefore the work surface
+         belongs on -x too. Keeping this convention aligned prevents mirrored
+         datasets and makes the initial scene physically reachable. -->
+    <body name="training_table" pos="-0.72 0 0.750">
       <geom name="training_table_top" type="box" size="0.45 0.35 0.025" mass="12" rgba="0.35 0.22 0.12 1" friction="0.8 0.01 0.001" contype="1" conaffinity="1"/>
     </body>
-    <site name="place_target" pos="0.90 0 0.778" type="cylinder" size="0.07 0.002" rgba="0.1 0.8 0.2 0.55"/>
-    <body name="target_cube" pos="0.48 0 0.80">
+    <site name="place_target" pos="-0.90 0 0.778" type="cylinder" size="0.07 0.002" rgba="0.1 0.8 0.2 0.55"/>
+    <body name="target_cube" pos="-0.48 0 0.80">
       <freejoint name="target_cube_free"/>
       <geom name="target_cube_geom" type="box" size="0.0225 0.0225 0.0225" mass="0.08" rgba="0.9 0.15 0.08 1" friction="1.2 0.01 0.001" contype="1" conaffinity="1"/>
     </body>

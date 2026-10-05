@@ -75,11 +75,13 @@ class XLeRobotReachEnv(gym.Env):
         # The first curriculum stage is stationary manipulation. Place the base
         # near the table while preserving a collision-safe gap.
         self.data.qpos[0] = 0.06
-        # The table begins at x=0.10 and physically stops the mobile base there.
+        # The operating side is -x. The table edge is at x=-0.27 and physically
+        # stops the mobile base before it reaches the manipulation surface.
         # Keep the reach target inside the measured arm workspace from that edge;
         # farther targets belong to a separate navigation/manipulation curriculum.
         y_range = [0.0, 0.15] if self.action_mode == "right_arm" else [-0.15, 0.15]
-        cube_xy = self.np_random.uniform([0.18, y_range[0]], [0.30, y_range[1]])
+        # Keep the entire 45 mm cube beyond the -0.27 m table edge.
+        cube_xy = self.np_random.uniform([-0.42, y_range[0]], [-0.31, y_range[1]])
         adr = int(self.cube_joint.qposadr[0])
         self.data.qpos[adr:adr + 7] = [cube_xy[0], cube_xy[1], 0.8025, 1, 0, 0, 0]
         self.data.qvel[:] = 0

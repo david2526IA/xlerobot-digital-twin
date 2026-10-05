@@ -35,7 +35,7 @@ def test_reach_targets_are_inside_table_edge_workspace():
     for seed in range(20):
         observation, _ = env.reset(seed=seed)
         cube = observation[-9:-6]
-        assert 0.18 <= cube[0] <= 0.30
+        assert -0.42 <= cube[0] <= -0.31
         assert -0.15 <= cube[1] <= 0.15
     env.close()
 
@@ -59,7 +59,7 @@ def test_right_arm_curriculum_contract():
     env = XLeRobotReachEnv(domain_randomization=False, action_mode="right_arm", horizon=1)
     observation, _ = env.reset(seed=11)
     assert env.action_space.shape == (4,)
-    assert observation[-9] >= 0.18
+    assert observation[-9] <= -0.31
     assert observation[-8] >= 0.0
     _, reward, _, truncated, info = env.step(np.zeros(4, dtype=np.float32))
     assert np.isfinite(reward)
