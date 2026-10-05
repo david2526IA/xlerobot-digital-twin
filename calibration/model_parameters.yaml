@@ -14,9 +14,9 @@ parameters:
   wheel.geometric_radius:
     value: 0.0635
     unit: m
-    status: provisional
-    source: physical reference photo and nominal 5-inch wheel
-    confidence: medium
+    status: official
+    source: XLeRobot v0.4 dual-wheel assembly specifies 5-inch universal walker wheels
+    confidence: high
     verify: Measure loaded tire diameter on the physical robot.
   wheel.effective_control_radius:
     value: 0.05
@@ -53,6 +53,20 @@ parameters:
     source: simulation engineering estimate
     confidence: low
     verify: Weigh the fully equipped cart including battery and computer.
+  cart.external_dimensions:
+    value: [0.35, 0.45, 0.77]
+    unit: m
+    status: official
+    source: IKEA RASKOG product 306.297.11; length x width x height
+    confidence: high
+    verify: Confirm the article and trolley size installed on this robot.
+  cart.maximum_payload:
+    value: 18.0
+    unit: kg
+    status: official
+    source: IKEA RASKOG product 306.297.11
+    confidence: high
+    verify: Treat as product limit, not as a dynamic robotics payload rating.
   tire.floor_sliding_friction:
     value: 1.0
     unit: ratio
@@ -61,12 +75,75 @@ parameters:
     confidence: low
     verify: Fit from coast-down, straight-line and turn tests on the target floor.
   servo.nominal_stall_torque:
-    value: 3.35
+    value: 2.942
     unit: N.m
     status: official
-    source: Feetech STS3215 nominal specification used by the official model
-    confidence: medium
+    source: Feetech ST-3215-C018 specification; 30 kg.cm at 12 V
+    confidence: high
     verify: Confirm supply voltage and apply a safe instrumented load test.
+  servo.simulation_force_limit:
+    value: 2.94
+    unit: N.m
+    status: official
+    source: rounded Feetech ST-3215-C018 peak stall torque at 12 V
+    confidence: high
+    verify: Use a lower continuous limit after thermal and task identification.
+  servo.rated_torque:
+    value: 0.9807
+    unit: N.m
+    status: official
+    source: Feetech ST-3215-C018 specification; 10 kg.cm at 12 V
+    confidence: high
+    verify: Confirm supply voltage and thermal operating envelope.
+  servo.no_load_speed:
+    value: 4.712
+    unit: rad/s
+    status: official
+    source: Feetech ST-3215-C018 specification; 45 RPM at 12 V
+    confidence: high
+    verify: Measure unloaded speed with the configured register limits.
+  servo.mass:
+    value: 0.055
+    unit: kg
+    status: official
+    source: Feetech STS3215 specification A/0; 55 +/- 1 g
+    confidence: high
+    verify: Weigh one motor if a different revision is installed.
+  servo.case_dimensions:
+    value: [0.0452, 0.0247, 0.035]
+    unit: m
+    status: official
+    source: Feetech STS3215 specification A/0
+    confidence: high
+    verify: Confirm orientation against the CAD motor mesh.
+  servo.gear_ratio:
+    value: 345.0
+    unit: ratio
+    status: official
+    source: Feetech STS3215 specification A/0; 1/345 reduction
+    confidence: high
+    verify: No additional verification required unless motor revision differs.
+  servo.maximum_backlash:
+    value: 0.5
+    unit: deg
+    status: official
+    source: Feetech STS3215 specification A/0
+    confidence: high
+    verify: Measure assembled joint backlash because printed parts add compliance.
+  servo.maximum_position_update_period:
+    value: 0.001
+    unit: s
+    status: official
+    source: Feetech STS3215 specification A/0
+    confidence: high
+    verify: Bus scheduling and software control rate remain separate limits.
+  servo.operating_voltage:
+    value: [4.0, 14.0]
+    unit: V
+    status: official
+    source: Feetech ST-3215-C018 specification; XLeRobot BOM requires the 12 V variant
+    confidence: high
+    verify: Record actual bus voltage under load.
   servo.command_latency:
     value: null
     unit: s
@@ -123,4 +200,3 @@ parameters:
     source: not measured
     confidence: none
     verify: Measure photon-to-frame and frame-to-display delay.
-

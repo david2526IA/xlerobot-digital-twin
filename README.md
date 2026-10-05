@@ -42,6 +42,7 @@ Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y
 - `docs/`: calibración, VR, cámaras, Isaac Sim, modelos y sim-to-real.
 - `docs/ROADMAP_V04.md`: auditoría, fuentes y etapas con criterios de aceptación.
 - `docs/PLAN_PROFESIONAL.md`: ejecución por bloques desde física hasta VR y sim-to-real.
+- `docs/DATASHEETS_V04.md`: valores de fichas oficiales y parámetros que aún deben medirse.
 - `docs/BUILD_LOG_V04.md`: registro reproducible de cada punto ejecutado.
 - `docs/GUIA_PRUEBAS_COMPLETA.md`: comprobación paso a paso de geometría, mando, cámaras, datasets y RL.
 - `third_party/xlerobot_official/`: snapshot inmutable de los CAD v0.4 y su licencia.

@@ -101,7 +101,7 @@ def arm(robot, side, base_xyz, base_rpy):
             xyz,
             rpy,
             axis,
-            {"lower": lower, "upper": upper, "effort": 3.35 if key != "gripper" else 10, "velocity": 4.0},
+            {"lower": lower, "upper": upper, "effort": 2.94, "velocity": 4.0},
         )
         parent = child_name
 

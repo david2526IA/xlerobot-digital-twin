@@ -224,7 +224,7 @@
     <child link="left_arm_rotation_link"/>
     <origin xyz="0 -0.0452 0.0165" rpy="1.5708 0 0"/>
     <axis xyz="0 -1 0"/>
-    <limit lower="-2.16" upper="2.16" effort="3.35" velocity="4.0"/>
+    <limit lower="-2.16" upper="2.16" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="left_arm_upper_link">
@@ -259,7 +259,7 @@
     <child link="left_arm_upper_link"/>
     <origin xyz="0 0.1025 0.0306" rpy="1.5708 0 0"/>
     <axis xyz="-1 0 0"/>
-    <limit lower="-0.22" upper="3.37" effort="3.35" velocity="4.0"/>
+    <limit lower="-0.22" upper="3.37" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="left_arm_lower_link">
@@ -294,7 +294,7 @@
     <child link="left_arm_lower_link"/>
     <origin xyz="0 0.11257 0.028" rpy="-1.5708 0 0"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-0.22" upper="3.14" effort="3.35" velocity="4.0"/>
+    <limit lower="-0.22" upper="3.14" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="left_arm_wrist_pitch_link">
@@ -329,7 +329,7 @@
     <child link="left_arm_wrist_pitch_link"/>
     <origin xyz="0 0.0052 0.1349" rpy="-1.5708 0 0"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-1.65806" upper="1.65806" effort="3.35" velocity="4.0"/>
+    <limit lower="-1.65806" upper="1.65806" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="left_arm_wrist_roll_link">
@@ -364,7 +364,7 @@
     <child link="left_arm_wrist_roll_link"/>
     <origin xyz="0 -0.0601 0" rpy="0 1.5708 0"/>
     <axis xyz="0 -1 0"/>
-    <limit lower="-2.74385" upper="2.84121" effort="3.35" velocity="4.0"/>
+    <limit lower="-2.74385" upper="2.84121" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="left_arm_gripper_link">
@@ -392,7 +392,7 @@
     <child link="left_arm_gripper_link"/>
     <origin xyz="-0.0202 -0.0244 0" rpy="3.1416 0 3.33"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-0.37453" upper="1.74533" effort="10" velocity="4.0"/>
+    <limit lower="-0.37453" upper="1.74533" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="right_arm_base_link">
@@ -460,7 +460,7 @@
     <child link="right_arm_rotation_link"/>
     <origin xyz="0 -0.0452 0.0165" rpy="1.5708 0 0"/>
     <axis xyz="0 -1 0"/>
-    <limit lower="-2.16" upper="2.16" effort="3.35" velocity="4.0"/>
+    <limit lower="-2.16" upper="2.16" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="right_arm_upper_link">
@@ -495,7 +495,7 @@
     <child link="right_arm_upper_link"/>
     <origin xyz="0 0.1025 0.0306" rpy="1.5708 0 0"/>
     <axis xyz="-1 0 0"/>
-    <limit lower="-0.22" upper="3.37" effort="3.35" velocity="4.0"/>
+    <limit lower="-0.22" upper="3.37" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="right_arm_lower_link">
@@ -530,7 +530,7 @@
     <child link="right_arm_lower_link"/>
     <origin xyz="0 0.11257 0.028" rpy="-1.5708 0 0"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-0.22" upper="3.14" effort="3.35" velocity="4.0"/>
+    <limit lower="-0.22" upper="3.14" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="right_arm_wrist_pitch_link">
@@ -565,7 +565,7 @@
     <child link="right_arm_wrist_pitch_link"/>
     <origin xyz="0 0.0052 0.1349" rpy="-1.5708 0 0"/>
     <axis xyz="1 0 0"/>
-    <limit lower="-1.65806" upper="1.65806" effort="3.35" velocity="4.0"/>
+    <limit lower="-1.65806" upper="1.65806" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="right_arm_wrist_roll_link">
@@ -600,7 +600,7 @@
     <child link="right_arm_wrist_roll_link"/>
     <origin xyz="0 -0.0601 0" rpy="0 1.5708 0"/>
     <axis xyz="0 -1 0"/>
-    <limit lower="-2.74385" upper="2.84121" effort="3.35" velocity="4.0"/>
+    <limit lower="-2.74385" upper="2.84121" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="right_arm_gripper_link">
@@ -628,7 +628,7 @@
     <child link="right_arm_gripper_link"/>
     <origin xyz="-0.0202 -0.0244 0" rpy="3.1416 0 3.33"/>
     <axis xyz="0 0 1"/>
-    <limit lower="-0.37453" upper="1.74533" effort="10" velocity="4.0"/>
+    <limit lower="-0.37453" upper="1.74533" effort="2.94" velocity="4.0"/>
     <dynamics damping="0.6" friction="0.052"/>
   </joint>
   <link name="neck_base_link">
