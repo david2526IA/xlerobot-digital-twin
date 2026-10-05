@@ -1,0 +1,126 @@
+schema_version: 1
+robot_variant: xlerobot_v0.4_servo_dualwheel
+conventions:
+  length: m
+  angle: rad
+  mass: kg
+  torque: N.m
+  operating_side: -x
+  base_frame: base_link
+  camera_frame: head_camera_optical_frame
+  status_values: [official, cad-derived, measured, provisional]
+
+parameters:
+  wheel.geometric_radius:
+    value: 0.0635
+    unit: m
+    status: provisional
+    source: physical reference photo and nominal 5-inch wheel
+    confidence: medium
+    verify: Measure loaded tire diameter on the physical robot.
+  wheel.effective_control_radius:
+    value: 0.05
+    unit: m
+    status: official
+    source: Vector-Wangel/XLeRobot software/src/robots/xlerobot_2wheels
+    confidence: high
+    verify: Identify from commanded wheel rotation versus travelled distance.
+  wheel.track_center_to_center:
+    value: 0.5
+    unit: m
+    status: provisional
+    source: reconstructed assembly placing tires outside the 0.459 m cart envelope
+    confidence: low
+    verify: Measure left-to-right tire centre distance.
+  controller.effective_wheelbase:
+    value: 0.25
+    unit: m
+    status: official
+    source: Vector-Wangel/XLeRobot xlerobot_2wheels controller
+    confidence: high
+    verify: Fit effective yaw gain using ten 360-degree turns.
+  wheel.mass_each:
+    value: 0.6
+    unit: kg
+    status: provisional
+    source: simulation engineering estimate
+    confidence: low
+    verify: Weigh wheel, hub, printed support and moving rotor together.
+  base.total_mass:
+    value: 10.0
+    unit: kg
+    status: provisional
+    source: simulation engineering estimate
+    confidence: low
+    verify: Weigh the fully equipped cart including battery and computer.
+  tire.floor_sliding_friction:
+    value: 1.0
+    unit: ratio
+    status: provisional
+    source: initial stable MuJoCo contact setting
+    confidence: low
+    verify: Fit from coast-down, straight-line and turn tests on the target floor.
+  servo.nominal_stall_torque:
+    value: 3.35
+    unit: N.m
+    status: official
+    source: Feetech STS3215 nominal specification used by the official model
+    confidence: medium
+    verify: Confirm supply voltage and apply a safe instrumented load test.
+  servo.command_latency:
+    value: null
+    unit: s
+    status: provisional
+    source: not measured
+    confidence: none
+    verify: Timestamp commands and encoder response using a step sequence.
+  neck.pan_limits:
+    value: [-3.2, 3.2]
+    unit: rad
+    status: cad-derived
+    source: reconstructed v0.4 description and servo range
+    confidence: medium
+    verify: Measure safe mechanical stops with cables installed.
+  neck.tilt_limits:
+    value: [-0.76, 1.45]
+    unit: rad
+    status: cad-derived
+    source: reconstructed v0.4 description and assembly geometry
+    confidence: medium
+    verify: Measure safe mechanical stops with the final camera installed.
+  camera.horizontal_fov:
+    value: 60.0
+    unit: deg
+    status: provisional
+    source: placeholder pinhole model
+    confidence: low
+    verify: Calibrate the installed camera using a Charuco board.
+  camera.resolution:
+    value: [640, 480]
+    unit: px
+    status: provisional
+    source: current simulator render setting
+    confidence: medium
+    verify: Freeze the physical capture mode used for datasets.
+  camera.intrinsics:
+    value: null
+    unit: px
+    status: provisional
+    source: not measured
+    confidence: none
+    verify: Record fx, fy, cx, cy and distortion from calibration.
+  camera.base_extrinsics:
+    value: null
+    unit: SE3
+    status: provisional
+    source: CAD-derived chain not validated on physical robot
+    confidence: low
+    verify: Estimate base-to-camera transform with pan and tilt at zero.
+  camera.end_to_end_latency:
+    value: null
+    unit: s
+    status: provisional
+    source: not measured
+    confidence: none
+    verify: Measure photon-to-frame and frame-to-display delay.
+

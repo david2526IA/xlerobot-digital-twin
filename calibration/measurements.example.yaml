@@ -1,0 +1,46 @@
+schema_version: 1
+robot_id: replace-with-your-robot-id
+measured_at: YYYY-MM-DD
+operator: replace-me
+equipment:
+  scale: null
+  caliper: null
+  camera_board: null
+
+geometry:
+  wheel_diameter_loaded_m: null
+  wheel_track_center_to_center_m: null
+  wheel_width_m: null
+  axle_x_from_base_m: null
+
+mass:
+  complete_robot_kg: null
+  left_wheel_assembly_kg: null
+  right_wheel_assembly_kg: null
+  battery_kg: null
+  onboard_computer_kg: null
+
+camera:
+  device_name: null
+  serial: null
+  resolution_px: null
+  fps: null
+  fx_px: null
+  fy_px: null
+  cx_px: null
+  cy_px: null
+  distortion_model: null
+  distortion_coefficients: null
+  mean_reprojection_error_px: null
+  base_to_camera_at_home: null
+
+identification:
+  straight_runs: []
+  full_turns: []
+  servo_step_tests: []
+  camera_latency_tests: []
+
+notes: |
+  Copy this file to calibration/measurements.yaml. That destination is ignored
+  by Git because it may contain hardware-specific identifiers and raw results.
+
