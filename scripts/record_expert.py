@@ -8,7 +8,7 @@ from pathlib import Path
 import mujoco
 import numpy as np
 
-from xlerobot_twin import XLeRobotReachEnv
+from xlerobot_twin import EpisodeRecorder, XLeRobotReachEnv
 from xlerobot_twin.env import ARM_ACTUATORS
 
 RIGHT_JOINTS = ("Rotation_R", "Pitch_R", "Elbow_R", "Wrist_Pitch_R", "Wrist_Roll_R")
@@ -65,32 +65,35 @@ def main() -> None:
     env = XLeRobotReachEnv(render_mode="rgb_array" if args.images else None, domain_randomization=True)
     while successes < args.episodes and attempts < max_attempts:
         observation, _ = env.reset(seed=args.seed + attempts)
-        observations, actions, rewards, images = [], [], [], []
+        recorder = EpisodeRecorder(
+            control_dt_s=float(env.model.opt.timestep * 8),
+            source="mujoco_scripted_damped_least_squares_ik",
+        )
         terminated = truncated = False
         info = {}
         while not (terminated or truncated):
             action = expert_action(env)
-            observations.append(observation)
-            actions.append(action)
-            if args.images:
-                images.append(env.render())
+            image = env.render() if args.images else None
+            current_observation = observation
             observation, reward, terminated, truncated, info = env.step(action)
-            rewards.append(reward)
-        payload = {
-            "observation": np.asarray(observations, dtype=np.float32),
-            "action": np.asarray(actions, dtype=np.float32),
-            "reward": np.asarray(rewards, dtype=np.float32),
-            "task": np.asarray("Reach the cube with either gripper"),
-            "success": np.asarray(bool(info.get("success", False))),
-        }
+            recorder.append(
+                observation=current_observation,
+                action=action,
+                reward=reward,
+                qpos=env.data.qpos,
+                qvel=env.data.qvel,
+                image=image,
+            )
         success = bool(info.get("success", False))
         attempts += 1
         if success:
-            if args.images:
-                payload["neck_rgb"] = np.asarray(images, dtype=np.uint8)
+            payload = recorder.payload(
+                task="reach_cube_with_either_gripper",
+                success=success,
+            )
             np.savez_compressed(args.output / f"episode_{successes:05d}.npz", **payload)
             successes += 1
-        print(f"attempt={attempts} steps={len(rewards)} success={success} saved={successes}")
+        print(f"attempt={attempts} steps={len(recorder.actions)} success={success} saved={successes}")
     env.close()
     rate = successes / attempts if attempts else 0.0
     print(f"saved={args.output} episodes={successes} attempts={attempts} controller_success_rate={rate:.1%}")

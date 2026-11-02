@@ -38,6 +38,7 @@ Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y
 - `scripts/run_mujoco.py`: simulador y teleoperación de mando.
 - `scripts/train.ps1`: instalación, entrenamiento PPO reanudable y evaluación.
 - `scripts/record_expert.py`: demostraciones de alcance mediante IK diferencial.
+- `docs/TELEMETRY_CONTRACT.md`: contrato de episodios para teleoperación, datos y transferencia entre simuladores.
 - `scripts/download_model.py`: descarga explícita y reproducible de checkpoints.
 - `docs/`: calibración, VR, cámaras, Isaac Sim, modelos y sim-to-real.
 - `docs/ROADMAP_V04.md`: auditoría, fuentes y etapas con criterios de aceptación.
@@ -58,9 +59,20 @@ Entrena y evalúa una política base sin GPU con `python scripts/train_cem.py` y
 
 ```text
 Switch / VR ──> adaptador de teleop ──> acciones normalizadas ──> MuJoCo
-                                                          └──> LeRobot (futuro real)
-MuJoCo cámara del cuello ──> imagen RGB / pose ──> VLA o visor VR
+                                                          ├──> Isaac Lab (adaptador futuro)
+                                                          └──> puente físico (sólo tras calibración)
+MuJoCo cámara del cuello ──> RGB / qpos / qvel / timestamps ──> episodios trazables
+                                                          └──> LeRobot, VLA o visor VR
 ```
+
+## Teleoperación y datos
+
+El gemelo ya cubre el patrón de investigación de manipulador móvil: dos brazos,
+cuello pan/tilt, base diferencial, mando con hombre muerto, cámara de cuello y
+episodios de demostración. Las demostraciones exportan un contrato explícito de
+16 acciones, estado, imágenes opcionales y timestamps. Consulta
+[el contrato de telemetría](docs/TELEMETRY_CONTRACT.md) antes de convertir
+datasets o conectar otro simulador.
 
 ## Seguridad
 

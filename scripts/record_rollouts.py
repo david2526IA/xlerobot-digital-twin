@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import numpy as np
-from xlerobot_twin import XLeRobotReachEnv
+from xlerobot_twin import EpisodeRecorder, XLeRobotReachEnv
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--episodes", type=int, default=10)
@@ -16,19 +16,26 @@ output = Path(args.output); output.mkdir(parents=True, exist_ok=True)
 env = XLeRobotReachEnv(render_mode="rgb_array" if args.images else None, domain_randomization=True)
 for episode in range(args.episodes):
     obs, _ = env.reset(seed=args.seed + episode)
-    observations, actions, rewards, images = [], [], [], []
+    recorder = EpisodeRecorder(
+        control_dt_s=float(env.model.opt.timestep * 8),
+        source="mujoco_random_policy",
+    )
     for _ in range(env.horizon):
         action = env.action_space.sample()
-        observations.append(obs); actions.append(action)
-        if args.images:
-            images.append(env.render())
+        image = env.render() if args.images else None
+        current_observation = obs
         obs, reward, terminated, truncated, _ = env.step(action)
-        rewards.append(reward)
+        recorder.append(
+            observation=current_observation,
+            action=action,
+            reward=reward,
+            qpos=env.data.qpos,
+            qvel=env.data.qvel,
+            image=image,
+        )
         if terminated or truncated:
             break
-    payload = {"observation": np.asarray(observations), "action": np.asarray(actions), "reward": np.asarray(rewards), "task": "reach the cube"}
-    if args.images:
-        payload["neck_rgb"] = np.asarray(images, dtype=np.uint8)
+    payload = recorder.payload(task="reach_cube_random_exploration")
     np.savez_compressed(output / f"episode_{episode:05d}.npz", **payload)
 print(f"Wrote {args.episodes} episodes to {output}")
 env.close()
