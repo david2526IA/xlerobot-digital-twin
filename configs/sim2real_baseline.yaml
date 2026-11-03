@@ -1,0 +1,29 @@
+experiment:
+  name: right_arm_reach_sim2real_baseline
+  seed: 100
+  train_seeds: [100, 101, 102]
+  evaluation_seeds: [1000, 1001, 1002]
+task:
+  action_mode: right_arm
+  base_enabled: false
+  horizon: 300
+training:
+  algorithm: PPO
+  timesteps: 100000
+  n_steps: 256
+  batch_size: 64
+evaluation:
+  episodes_per_seed: 20
+  metric: success_rate
+domains:
+  nominal:
+    domain_randomization: false
+  randomized:
+    domain_randomization: true
+hardware_gate:
+  allowed: false
+  required_evidence:
+    - calibration/measurements.yaml
+    - emergency_stop_check
+    - watchdog_check
+    - low_speed_suspended_test
