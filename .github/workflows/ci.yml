@@ -39,3 +39,8 @@ jobs:
       - run: pip install -e .
       - run: python scripts/train_rl.py --action-mode right_arm --timesteps 64 --n-steps 64 --batch-size 32 --output outputs/models/ppo_ci
       - run: python scripts/evaluate_rl.py outputs/models/ppo_ci.zip --action-mode right_arm --episodes 1
+      - run: >-
+          python scripts/run_sim2real_protocol.py
+          --config configs/sim2real_smoke.yaml
+          --condition nominal
+          --output-dir outputs/sim2real_smoke
