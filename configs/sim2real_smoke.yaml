@@ -1,0 +1,27 @@
+experiment:
+  name: sim2real_protocol_smoke
+  seed: 7
+  train_seeds: [7]
+  evaluation_seeds: [70]
+task:
+  action_mode: right_arm
+  base_enabled: false
+  horizon: 300
+training:
+  algorithm: PPO
+  timesteps: 32
+  n_steps: 32
+  batch_size: 32
+  n_envs: 1
+  device: cpu
+evaluation:
+  episodes_per_seed: 1
+  metric: success_rate
+domains:
+  nominal:
+    domain_randomization: false
+  randomized:
+    domain_randomization: true
+hardware_gate:
+  allowed: false
+  required_evidence: []
