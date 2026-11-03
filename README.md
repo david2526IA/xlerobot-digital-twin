@@ -9,6 +9,10 @@ El proyecto sigue una ruta de sim-to-real con un alcance explícito: consulta
 [LIMITATIONS.md](LIMITATIONS.md). La transferencia a hardware está bloqueada
 hasta completar la calibración y las comprobaciones de seguridad.
 
+El experimento largo de PPO queda preparado pero deliberadamente sin ejecutar.
+Consulta [cómo entrenarlo en otro PC](docs/REMOTE_TRAINING.md) y el estado de
+[resultados](results/README.md) antes de interpretar cualquier checkpoint.
+
 > Estado auditado: el proyecto upstream no publica un URDF v0.4, por lo que este repositorio construye uno trazable desde sus CAD oficiales. La geometría v0.4 ya está integrada y validada en MuJoCo e Isaac; masas, fricción, offsets no publicados y cámara siguen necesitando medición física para considerarlo un gemelo exacto. Consulta la [hoja de ruta v0.4](docs/ROADMAP_V04.md).
 
 ## Inicio rápido
