@@ -27,6 +27,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--checkpoint-freq", type=int, default=25_000)
     parser.add_argument("--device", default="auto", help="auto, cpu, cuda, ...")
     parser.add_argument("--action-mode", choices=("right_arm", "full"), default="right_arm")
+    parser.add_argument("--no-domain-randomization", action="store_true")
     return parser.parse_args()
 
 
@@ -41,7 +42,7 @@ def main() -> None:
         XLeRobotReachEnv,
         n_envs=args.n_envs,
         seed=args.seed,
-        env_kwargs={"action_mode": args.action_mode},
+        env_kwargs={"action_mode": args.action_mode, "domain_randomization": not args.no_domain_randomization},
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     tensorboard_log = str(args.tensorboard_log) if args.tensorboard_log else None
@@ -83,6 +84,7 @@ def main() -> None:
         "torch": torch.__version__,
         "python": platform.python_version(),
         "device": str(model.device),
+        "domain_randomization": not args.no_domain_randomization,
     }
     args.output.with_suffix(".run.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     env.close()

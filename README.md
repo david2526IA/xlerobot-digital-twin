@@ -4,6 +4,11 @@
 
 Gemelo digital abierto y reproducible para el XLeRobot 0.4 de base diferencial. La descripción canónica URDF, MuJoCo e Isaac Sim comparten las mallas CAD v0.4, 16 joints y dos ruedas físicas independientes.
 
+El proyecto sigue una ruta de sim-to-real con un alcance explícito: consulta
+[SPEC.md](SPEC.md), [ARCHITECTURE.md](ARCHITECTURE.md) y
+[LIMITATIONS.md](LIMITATIONS.md). La transferencia a hardware está bloqueada
+hasta completar la calibración y las comprobaciones de seguridad.
+
 > Estado auditado: el proyecto upstream no publica un URDF v0.4, por lo que este repositorio construye uno trazable desde sus CAD oficiales. La geometría v0.4 ya está integrada y validada en MuJoCo e Isaac; masas, fricción, offsets no publicados y cámara siguen necesitando medición física para considerarlo un gemelo exacto. Consulta la [hoja de ruta v0.4](docs/ROADMAP_V04.md).
 
 ## Inicio rápido
